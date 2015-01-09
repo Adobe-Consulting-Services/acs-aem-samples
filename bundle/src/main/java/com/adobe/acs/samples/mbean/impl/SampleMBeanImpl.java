@@ -22,7 +22,6 @@ package com.adobe.acs.samples.mbean.impl;
 
 import com.adobe.acs.samples.mbean.SampleMBean;
 import com.adobe.granite.jmx.annotation.AnnotatedStandardMBean;
-import com.sun.deploy.cache.CacheEntry;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Properties;
 import org.apache.felix.scr.annotations.Property;
