@@ -34,7 +34,7 @@ import javax.jcr.RepositoryException;
         @Property(
                 label = "Vendor",
                 name = Constants.SERVICE_VENDOR,
-                value = "ActiveCQ",
+                value = "Adobe",
                 propertyPrivate = true
         )
 })
