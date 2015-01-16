@@ -38,7 +38,7 @@ import java.util.Collections;
         @Property(
                 label = "Vendor",
                 name = Constants.SERVICE_VENDOR,
-                value = "ActiveCQ",
+                value = "Adobe",
                 propertyPrivate = true
         ),
         @Property(
