@@ -193,9 +193,10 @@ public class ClientContextBuilderImpl implements ClientContextBuilder {
     @Override
     public ResourceResolver getResourceResolverFor(final String authorizableId) throws LoginException {
         final Map<String, Object> serviceParams = new HashMap<String,Object>();
+        //assuming the authorizable id is a service user. May be we can hard code a service user.
         serviceParams.put(ResourceResolverFactory.SUBSERVICE, authorizableId);
         return resourceResolverFactory.getServiceResourceResolver(serviceParams);
-        
+
     }
 
     @Override
