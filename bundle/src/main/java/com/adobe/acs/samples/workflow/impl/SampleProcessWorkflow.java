@@ -28,7 +28,7 @@ import java.util.Collections;
 
 @Component(
         label = "ACS AEM Samples - AEM Workflow Process",
-        description = "ACS AEM Samples- Sample Workflow Process implementation"
+        description = "ACS AEM Samples - Sample Workflow Process implementation"
 )
 @Properties({
         @Property(
