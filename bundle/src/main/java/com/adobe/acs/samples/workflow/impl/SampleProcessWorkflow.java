@@ -7,7 +7,11 @@ import com.day.cq.workflow.exec.WorkflowData;
 import com.day.cq.workflow.exec.WorkflowProcess;
 import com.day.cq.workflow.metadata.MetaDataMap;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.felix.scr.annotations.*;
+import org.apache.felix.scr.annotations.Component;
+import org.apache.felix.scr.annotations.Properties;
+import org.apache.felix.scr.annotations.Property;
+import org.apache.felix.scr.annotations.Reference;
+import org.apache.felix.scr.annotations.Service;
 import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -23,11 +27,8 @@ import java.util.Collections;
 
 
 @Component(
-        label = "ACS-AEM-Samples - CQ Workflow Process",
-        description = "ACS-AEM-Samples- Sample Workflow Process implementation",
-        metatype = false,
-        immediate = false,
-        policy = ConfigurationPolicy.REQUIRE
+        label = "ACS AEM Samples - AEM Workflow Process",
+        description = "ACS AEM Samples- Sample Workflow Process implementation"
 )
 @Properties({
         @Property(
@@ -36,64 +37,64 @@ import java.util.Collections;
                 propertyPrivate = true
         ),
         @Property(
-                label = "Vendor",
-                name = Constants.SERVICE_VENDOR,
-                value = "Adobe",
-                propertyPrivate = true
-        ),
-        @Property(
                 label = "Workflow Label",
                 name = "process.label",
                 value = "Sample Workflow Process",
-                description = "Label which will appear in the Adobe CQ Workflow interface"
+                description = "Label which will appear in the AEM Workflow interface; This should be unique across "
+                        + "Workflow Processes",
+                propertyPrivate = true
         )
 })
 @Service
 public class SampleProcessWorkflow implements WorkflowProcess {
+    private static final Logger log = LoggerFactory.getLogger(SampleProcessWorkflow.class);
 
-    /**
-     * OSGi Service References *
-     */
     @Reference
     ResourceResolverFactory resourceResolverFactory;
 
     /**
-     * Fields *
-     */
-
-    private static final Logger log = LoggerFactory.getLogger(SampleProcessWorkflow.class);
-
-    /**
-     * Work flow execute method *
+     * The method called by the AEM Workflow Engine to perform Workflow work.
+     *
+     * @param workItem the work item representing the resource moving through the Workflow
+     * @param workflowSession the workflow session
+     * @param args arguments for this Workflow Process defined on the Workflow Model (PROCESS_ARGS, argSingle, argMulti)
+     * @throws WorkflowException when the Workflow Process step cannot complete. This will cause the WF to retry.
      */
     @Override
-    public void execute(WorkItem workItem, WorkflowSession workflowSession, MetaDataMap args) throws WorkflowException {
+    public final void execute(WorkItem workItem, WorkflowSession workflowSession, MetaDataMap args) throws
+            WorkflowException {
+
+        /* Get the Workflow Payload */
+
         // Get the Workflow data (the data that is being passed through for this work item)
+
         final WorkflowData workflowData = workItem.getWorkflowData();
         final String type = workflowData.getPayloadType();
 
-        // Check if the payload is a path in the JCR
+        // Check if the payload is a path in the JCR; The other (less common) type is JCR_UUID
         if (!StringUtils.equals(type, "JCR_PATH")) {
             return;
         }
         // Get the path to the JCR resource from the payload
         final String path = workflowData.getPayload().toString();
 
-        ResourceResolver resourceResolver = null;
-        try {
-            //get the resourceresolver from workflow session
-            resourceResolver = getResourceResolver(workflowSession.getSession());
-        } catch (LoginException e) {
-           log.error("resolver could not be obtained",e);
-        }
-        //get the resource the payload points to
-        Resource resource = resourceResolver.getResource(path);
-        //do the things to the resource.
 
-        // Standard Arguments metadata
-        String argument = args.get("PROCESS_ARGS", "default value");
-        // No parse "argument" as needed to extract delimited values
+        /* Get Workflow Process Arguments */
 
+        // These args are specified on the Workflow Model using this WF Process.
+
+
+        /* Process Args */
+        // These are free-form textfields; the values of these may need to be parsed based on
+        // expected in put formats
+
+        String processArgs = args.get("PROCESS_ARGS", "default value");
+        String[] proccesArgsVals = StringUtils.split(processArgs, ",");
+
+
+        /* Single and MultiValue args */
+
+        // Some WF Process steps support Single and MultiValue args; these are can access via named properties
         // Custom WF inputs stored under ./metaData/argSingle and ./metadata/argMulti
         String singleValue = args.get("argSingle", "not set");
         String[] multiValue = args.get("argMulti", new String[]{"not set"});
@@ -101,16 +102,42 @@ public class SampleProcessWorkflow implements WorkflowProcess {
         log.debug("Single Value: {}", singleValue);
         log.debug("Multi Value: {}", Arrays.toString(multiValue));
 
-        // Save data for use in a subsequent Workflow step
-        persistData(workItem, workflowSession, "set-for-next-workflow-step", "whatever data you want");
 
-        throw new UnsupportedOperationException("Not supported yet.");
+        /* Get data set in prior Workflow Steps */
+        String previouslySetData = this.getPersistedData(workItem, "set-in-previous-workflow-step", String.class);
+
+
+        /* Do work on the Payload; Remember to use Sling APIs as much as possible */
+
+        ResourceResolver resourceResolver = null;
+        try {
+            // Get the ResourceResolver from workflow session
+            resourceResolver = getResourceResolver(workflowSession.getSession());
+
+            // Get the resource the payload points to; Keep in mind the payload can be any resource including
+            // a AEM WF Package which must be processes specially.
+            Resource resource = resourceResolver.getResource(path);
+
+
+            // Do work ....
+
+
+            // Save data for use in a subsequent Workflow step
+            persistData(workItem, workflowSession, "set-for-next-workflow-step", "whatever data you want");
+
+        } catch (Exception e) {
+            // If an error occurs that prevents the Workflow from completing/continuing - Throw a WorkflowException
+            // and the WF engine will retry the Workflow later (based on the AEM Workflow Engine configuration).
+
+            log.error("Unable to complete processing the Workflow Process step", e);
+
+            throw new WorkflowException("Unable to complete processing the Workflow Process step", e);
+        }
     }
 
 
-
     /**
-     * Helper methods *
+     * Helper methods.
      */
 
     private <T> boolean persistData(WorkItem workItem, WorkflowSession workflowSession, String key, T val) {
@@ -136,9 +163,7 @@ public class SampleProcessWorkflow implements WorkflowProcess {
     }
 
     private ResourceResolver getResourceResolver(Session session) throws LoginException {
-
             return resourceResolverFactory.getResourceResolver(Collections.<String, Object>singletonMap(JcrResourceConstants.AUTHENTICATION_INFO_SESSION,
                     session));
-
     }
 }
