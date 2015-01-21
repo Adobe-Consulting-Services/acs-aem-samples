@@ -37,9 +37,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Component(
-        label = "ACS AEM Commons - Multi-reference Service",
+        label = "ACS AEM Samples - Multi-reference Service",
         description = "This sample service collects registered implementations of other services."
 )
 @References({
@@ -56,7 +57,9 @@ public class SampleMultiReferenceServiceImpl implements SampleMultiReferenceServ
     public static final String SAMPLE_SERVICE_NAME = "sampleService";
 
     // List to store Service objects derived from the serviceReferenceArray
-    private Map<String, SampleService> sampleServices = new HashMap<String, SampleService>();
+    // Note: This Map MUST be thread-safe; there is no guarentee that OSGi will not be adding/removing 
+    // service references from this Map while consuming code is reading from it.
+    private Map<String, SampleService> sampleServices = new ConcurrentHashMap<String, SampleService>();
 
     /* Service Methods */
 
@@ -90,17 +93,4 @@ public class SampleMultiReferenceServiceImpl implements SampleMultiReferenceServ
             this.sampleServices.remove(type);
         }
     }
-
-    /* OSGi Component Methods */
-
-    @Activate
-    protected final void activate(final Map<String, String> config) throws Exception {
-        // Remove if not used
-    }
-
-    @Deactivate
-    protected final void deactivate(final Map<String, String> config) {
-        // Remove if not used
-    }
-
 }
