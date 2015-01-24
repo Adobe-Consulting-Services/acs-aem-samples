@@ -1,6 +1,6 @@
 # ACS AEM Samples
 
-Samples index: http://localhost:4000/acs-aem-samples/#samples
+#### Samples index: [http://adobe-consulting-services.github.io/acs-aem-samples/#samples](http://adobe-consulting-services.github.io/acs-aem-samples/#samples)
 
 This project is a collection of sample implementation of the various, common building blocks for AEM-based applications.
 
