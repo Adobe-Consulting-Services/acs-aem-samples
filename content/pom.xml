@@ -149,7 +149,7 @@
                         <embedded>
                             <groupId>com.adobe.acs</groupId>
                             <artifactId>acs-aem-samples-bundle</artifactId>
-                            <target>/apps/acs-aem-samples/install</target>
+                            <target>/apps/acs-samples/install</target>
                         </embedded>
                     </embeddeds>
 
