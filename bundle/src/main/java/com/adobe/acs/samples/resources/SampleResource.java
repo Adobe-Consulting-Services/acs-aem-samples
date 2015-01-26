@@ -21,8 +21,8 @@ import java.util.Map;
 // Mark this resource as Adaptable to a ValueMap; Other adapters can be defined here as well.
 @Adaptable(adaptableClass = Resource.class,
         adapters = {
-            @Adapter({ ValueMap.class })
-    }
+                @Adapter({ ValueMap.class })
+        }
 )
 public class SampleResource extends AbstractResource implements Resource {
 
@@ -43,7 +43,6 @@ public class SampleResource extends AbstractResource implements Resource {
 
     // Define the ValueMap that will be used to populate the ValueMap param in this resource's Constructor (3rd param)
     public static class SampleValueMap extends ValueMapDecorator {
-
 
         // Common patterns include enumerating all the properties and adding each specifically
         // This allows for a controlled property schema
@@ -77,12 +76,11 @@ public class SampleResource extends AbstractResource implements Resource {
         this.valueMap.put(ResourceResolver.PROPERTY_RESOURCE_TYPE, RESOURCE_TYPE);
         this.valueMap.put("generatedAt", new Date());
 
-
         // Set the resolutionPath for this resource to the resource's path
         this.metadata = new ResourceMetadata();
         this.metadata.setResolutionPath(path);
 
-        new SampleResource.SampleValueMap("foo" , 2,3);
+        new SampleResource.SampleValueMap("foo", 2, 3);
     }
 
     @Override
