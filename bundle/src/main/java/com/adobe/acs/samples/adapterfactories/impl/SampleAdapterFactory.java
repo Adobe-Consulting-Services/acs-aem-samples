@@ -17,6 +17,7 @@
  * limitations under the License.
  * #L%
  */
+
 package com.adobe.acs.samples.adapterfactories.impl;
 
 import org.apache.felix.scr.annotations.Component;

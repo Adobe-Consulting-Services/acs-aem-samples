@@ -17,6 +17,7 @@
  * limitations under the License.
  * #L%
  */
+
 package com.adobe.acs.samples.filters.impl;
 
 import com.day.cq.wcm.api.WCMMode;
