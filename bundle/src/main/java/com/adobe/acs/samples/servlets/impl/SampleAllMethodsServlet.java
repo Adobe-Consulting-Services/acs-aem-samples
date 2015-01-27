@@ -64,6 +64,7 @@ public class SampleAllMethodsServlet extends SlingAllMethodsServlet implements O
         // To be safe, never modify data (add/update/delete) in the context of a GET request
 
         // Set the response type; this might be JSON, etc.
+        // The repsonse type is usually closely correlated to the extension the servlet listens on
         response.setContentType("text/html");
 
         // Do some work
@@ -71,11 +72,15 @@ public class SampleAllMethodsServlet extends SlingAllMethodsServlet implements O
         ValueMap properties = resource.adaptTo(ValueMap.class);
 
         if (properties != null) {
+            // Writing HTML in servlets is usually inadvisable, and is better suited to be provided via a JSP/Sightly template
+            // This is just an example.
             response.getWriter().write("<html><head></head><body>Hello "
                             + properties.get("name", "World")
                             + "!</body></html>");
+            // By Default the 200 HTTP Response status code is used; below explicitly sets it.                    
             response.setStatus(SlingHttpServletResponse.SC_OK);
         } else {
+            // Set HTTP Response Status code appropriately
             response.setStatus(SlingHttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             response.getWriter().write("ERROR");
         }
@@ -92,21 +97,27 @@ public class SampleAllMethodsServlet extends SlingAllMethodsServlet implements O
         // Do some work
         Resource resource = request.getResourceResolver().getResource("/content/world");
         ModifiableValueMap properties = resource.adaptTo(ModifiableValueMap.class);
-
         properties.put("name", newWorld);
-
-
         resource.getResourceResolver().commit();
 
+        // Set the content type as needed
+        // The repsonse type is usually closely correlated to the extension the servlet listens on.
         response.setContentType("application/json");
+        
+        // When constructing a JSON response, leverage the Sling JSON Apis
         JSONObject jsonResponse = new JSONObject();
         try {
             jsonResponse.put("success", true);
             jsonResponse.put("new-world", newWorld);
+            // Write the JSON to the response
             response.getWriter().write(jsonResponse.toString(2));
+            // Be default, a 200 HTTP Response Status code is used
         } catch (JSONException e) {
             log.error("Could not formulate JSON response");
-
+            // Servlet failures should always return an approriate HTTP Status code
+            response.setStatus(SlingHttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            // If you do not set your own HTML Response content, the OOTB HATEOS Response is used
+            response.getWriter().write("ERROR");
         }
     }
 
