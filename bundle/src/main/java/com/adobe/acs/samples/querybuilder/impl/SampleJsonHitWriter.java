@@ -69,6 +69,7 @@ public class SampleJsonHitWriter implements ResultHitWriter {
 
     @Override
     public final void write(Hit hit, JSONWriter jsonWriter, Query query) throws RepositoryException, JSONException {
+        // This example assume the "hit" represents a [cq:Page] node (and not the [cq:Page]/jcr:content node)
 
         // The Resource that represents a Query "hit" (result); This can used to access other related resources in the JCR.
         final Resource resource = hit.getResource();
@@ -83,7 +84,7 @@ public class SampleJsonHitWriter implements ResultHitWriter {
         // Write resource properties from the hit result node (or relative nodes) to the JSON result object
         // You have full control over the names/values of the JSON key/value pairs returned.
         // These do not have to match node names
-        jsonWriter.key("key-to-use-in-json").value(properties.get("jcr:title", "") 
+        jsonWriter.key("key-to-use-in-json").value(properties.get("jcr:content/jcr:title", "") 
             + "(pulled from jcr:content node)");
 
         // Custom logic can be used to transform and/or retrieve data to be added to the resulting JSON object
