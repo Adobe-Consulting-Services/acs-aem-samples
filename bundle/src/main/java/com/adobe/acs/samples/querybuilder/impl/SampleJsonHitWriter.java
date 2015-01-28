@@ -70,19 +70,21 @@ public class SampleJsonHitWriter implements ResultHitWriter {
     @Override
     public final void write(Hit hit, JSONWriter jsonWriter, Query query) throws RepositoryException, JSONException {
 
-        // Get the Resource that represents a Query "hit" (result)
+        // The Resource that represents a Query "hit" (result); This can used to access other related resources in the JCR.
         final Resource resource = hit.getResource();
-
+        
+        // The Hit object contains the ValueMap representing the "hit" resource. 
+        // This can be used to quickly get properties/relative properties from the hit to expose via the HitWriter.
+        final ValueMap properties = hit.getProperties();
+    
         // Write simple values like the node's path to the JSON result object
         jsonWriter.key("path").value(resource.getPath());
 
         // Write resource properties from the hit result node (or relative nodes) to the JSON result object
-        final ValueMap properties = resource.adaptTo(ValueMap.class);
-
         // You have full control over the names/values of the JSON key/value pairs returned.
         // These do not have to match node names
-        jsonWriter.key("key-to-use-in-json").value(properties.get("jcr:content/jcr:title",
-                "") + "(pulled from jcr:content node)");
+        jsonWriter.key("key-to-use-in-json").value(properties.get("jcr:title", "") 
+            + "(pulled from jcr:content node)");
 
         // Custom logic can be used to transform and/or retrieve data to be added to the resulting JSON object
         // Note: Keep this logic as light as possible. Complex logic can introduce performance issues that are
