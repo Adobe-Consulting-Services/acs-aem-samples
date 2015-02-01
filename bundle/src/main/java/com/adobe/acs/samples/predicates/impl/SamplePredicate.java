@@ -40,7 +40,7 @@ import javax.jcr.RepositoryException;
 // http://docs.adobe.com/docs/en/cq/current/javadoc/com/day/cq/commons/predicate/AbstractNodePredicate.html
 
 @Component(
-        label = "ACS Samples - Resource Predicate",
+        label = "ACS Samples - Sample Predicate",
         description = "Filtering Predicate for Resources/Nodes.")
 @Properties({
         @Property(
