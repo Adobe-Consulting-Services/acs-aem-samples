@@ -63,7 +63,7 @@ public class SampleFacetPredicateEvaluator extends AbstractPredicateEvaluator {
 
         try {
             // Sample Facet Extractor is a custom private Facet Extractor defined below.
-            return new SampleFacetExtractor(p, context.getResourceResolver());
+            return new SampleFacetExtractor(p, context.getSession());
         } catch (RepositoryException e) {
             return null;
         }
@@ -73,12 +73,12 @@ public class SampleFacetPredicateEvaluator extends AbstractPredicateEvaluator {
     private final class SampleFacetExtractor extends DistinctValuesFacetExtractor {
         private final Logger log = LoggerFactory.getLogger(SampleFacetExtractor.class);
 
-        private final ResourceResolver resourceResolver;
+        private final Session session;
         private final ValueFactory valueFactory;
         private final String valueProperty;
 
         // Pass in any context as the FacetExtractor is a POJO
-        private SampleFacetExtractor(final Predicate p, final ResourceResolver resourceResolver) throws RepositoryException {
+        private SampleFacetExtractor(final Predicate p, final Session session) throws RepositoryException {
             // propertyRelPath: The property path; This is the value of p.get("value") for this custom Predicate; Should be unique
             // nodePathFilter: Can provide a filter to skip hit Nodes when extracting Facets
             // predicateTemplate: Usually p.clone();
@@ -88,8 +88,8 @@ public class SampleFacetPredicateEvaluator extends AbstractPredicateEvaluator {
                     p.clone(),
                     VALUE);
 
-            this.resourceResolver = resourceResolver;
-            this.valueFactory = resourceResolver.adaptTo(Session.class).getValueFactory();
+            this.session = session;
+            this.valueFactory = this.session.getValueFactory();
             this.valueProperty = p.get(VALUE);
         }
 
@@ -111,24 +111,25 @@ public class SampleFacetPredicateEvaluator extends AbstractPredicateEvaluator {
 
             final List<Value> values = new ArrayList<Value>();
 
-            // We like the Sling Resource API over the JCR API!!!
-            final Resource resource = this.resourceResolver.getResource(hit.getPath());
-
+            // Note: This is an unusual case where JCR API is preferred over Sling Resource APIs
+            // as performance is PARAMOUNT in FacetExtractors and the Node API
+            // will be faster. 
 
             // Perform some logic here to figure out
             // 1) If you want to put this hit into a bucket
             // 2) One hit can inform as many buckets of this facet as you want
 
-            if (StringUtils.startsWith(resource.getPath(), "/content/geometrixx/en")) {
-                final ValueMap properties = resource.adaptTo(ValueMap.class);
+            if (StringUtils.startsWith(hit.getPath(), "/content/geometrixx/en")) {
 
-                // Get the value from the predicate value; This could be anything, but makes sense that
-                // the Predicate definition helpers drive this.
-                final String value = properties.get(this.valueProperty, String.class);
-
-                if (StringUtils.isNotBlank(value)) {
-                    // Add any Value; like values will be automatically grouped in the same Bucket
-                    values.add(this.createValue(value));
+                // Get the value from the predicate value; This could be anything, 
+                // but usually makes sense that the Predicate definition helpers drive this.
+                if (hit.hasProperty(this.valueProperty)) {
+                    final String value = hit.getProperty(this.valueProperty).toString();
+                    
+                    if (StringUtils.isNotBlank(value)) {
+                        // Add any Value; like values will be automatically grouped in the same Bucket
+                        values.add(this.createValue(value));
+                    }
                 }
             }
 
