@@ -29,6 +29,6 @@
     <!-- This sling:resourceType points to the implementation of the DataSource -->
     <datasource
             jcr:primaryType="nt:unstructured"
-            sling:resourceType="acs-samples/granite-ui/datasources/sample-datasource"
+            sling:resourceType="acs-samples/touch-ui/datasources/sample-datasource"
             path="/content/foo" />
 </jcr:root>
