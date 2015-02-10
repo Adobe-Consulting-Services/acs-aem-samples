@@ -24,7 +24,7 @@ public class SampleServiceLoginResourceResolverImpl implements SampleExecutor {
     private static final Logger logger = LoggerFactory.getLogger(SampleServiceLoginResourceResolverImpl.class);
 
     // This "identifier" does NOT directly correlate to a CRX User; The mapping of this value to the CRX User 
-    // happens in the ServiceUserMapper Factory OSGi config
+    // happens in the ServiceUserMapper OSGi config
     //
     // /apps/acs-samples/config/org.apache.sling.serviceusermapping.impl.ServiceUserMapperImpl.xml
     
