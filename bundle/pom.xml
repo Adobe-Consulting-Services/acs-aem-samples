@@ -130,7 +130,7 @@
                         <Bundle-SymbolicName>com.adobe.acs.acs-aem-samples-bundle</Bundle-SymbolicName>
 
                         <Sling-Model-Packages>
-                          com.adobe.acs.samples.slingmodels
+                          com.adobe.acs.samples.models
                         </Sling-Model-Packages>
 
                     </instructions>
