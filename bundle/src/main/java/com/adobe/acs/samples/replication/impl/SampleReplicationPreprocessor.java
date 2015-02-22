@@ -65,8 +65,17 @@ public class SampleReplicationPreprocessor implements Preprocessor {
 
         try {
             resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
-            // Get the payload as a resource
-            final Resource resource = resourceResolver.getResource(path);
+            // Get the payload as a resource; In this case getting the jcr:content node since we'll
+            // be writing a custom value to it (this will fail if writing to cq:Page resource)
+            final Resource resource = resourceResolver.getResource(path).getChild("jcr:content");
+
+            if (resource == null) {
+                // Remember; ALL replications go through this; so check to make sure that what
+                // you're doing is Universal OR put your checks in early.
+                log.warn("Could not find jcr:content node for resource to apply checksum!");
+                return;
+            }
+
             // Get the resource's properties for modification
             final ModifiableValueMap properties = resource.adaptTo(ModifiableValueMap.class);
 
