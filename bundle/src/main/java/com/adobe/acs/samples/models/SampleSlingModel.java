@@ -64,11 +64,11 @@ public class SampleSlingModel {
     private String title;
 
     // Inject a property whose name DOES match the Model field name
-    @Inject @Optional
+    @Inject @Default(values = "No description provided")
     private String description;
 
     // Set a default value
-    @Inject @Default(values = "basic")
+    @Inject @Optional
     private String theme;
 
     // Inject OSGi services
@@ -98,13 +98,7 @@ public class SampleSlingModel {
 
     // This getter exposes data Injected into the Model
     public String getDescription(int truncateAt) {
-        String tmp = this.description;
-
-        if (this.description == null) {
-            tmp = "no description found";
-        }
-
-        return tmp.substring(0, truncateAt) + "...";
+        return this.description.substring(0, truncateAt) + "...";
     }
 
     // This getter exposes the work of a @PostConstruct method
