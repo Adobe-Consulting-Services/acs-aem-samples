@@ -6,19 +6,21 @@ import com.day.cq.search.eval.EvaluationContext;
 import com.day.cq.search.facets.FacetExtractor;
 import com.day.cq.search.facets.extractors.DistinctValuesFacetExtractor;
 import org.apache.commons.lang.StringUtils;
-import org.apache.felix.scr.annotations.*;
-import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.api.resource.ValueMap;
+import org.apache.felix.scr.annotations.Component;
+import org.apache.felix.scr.annotations.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.jcr.*;
+import javax.jcr.Node;
+import javax.jcr.RepositoryException;
+import javax.jcr.Session;
+import javax.jcr.Value;
+import javax.jcr.ValueFactory;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component(
-        label = "ACS AEM Commons - Sample QueryBuilder Predicate Evaluator",
+        label = "ACS AEM Samples - Sample QueryBuilder Predicate Evaluator",
         factory = "com.day.cq.search.eval.PredicateEvaluator/facet"
 )
 @Service
