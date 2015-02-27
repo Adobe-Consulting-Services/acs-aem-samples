@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="cq:Page">
+    <jcr:content
+        cq:lastModified="{Date}2015-02-27T11:20:07.243-07:00"
+        cq:lastModifiedBy="admin"
+        cq:template="/apps/acs-samples/angularjs-integration/templates/pagePartial"
+        jcr:primaryType="cq:PageContent"
+        jcr:title="Checkout"
+        sling:resourceType="acs-samples/angularjs-integration/pages/pagePartial"/>
+</jcr:root>
