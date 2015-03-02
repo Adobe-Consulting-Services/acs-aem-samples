@@ -10,6 +10,5 @@
         sling:resourceType="acs-samples/angularjs-integration/pages/containerPage"/>
     <home/>
     <search/>
-    <detail/>
     <checkout/>
 </jcr:root>

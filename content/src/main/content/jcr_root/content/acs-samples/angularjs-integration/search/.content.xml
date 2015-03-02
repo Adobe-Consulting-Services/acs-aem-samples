@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
     jcr:primaryType="cq:Page">
     <jcr:content
-        cq:lastModified="{Date}2015-02-27T11:19:41.799-07:00"
+        cq:lastModified="{Date}2015-03-02T10:42:40.903-07:00"
         cq:lastModifiedBy="admin"
         cq:template="/apps/acs-samples/angularjs-integration/templates/pagePartial"
         jcr:primaryType="cq:PageContent"
         jcr:title="Search"
-        sling:resourceType="acs-samples/angularjs-integration/pages/pagePartial"/>
+        sling:resourceType="acs-samples/angularjs-integration/pages/pagePartial">
+        <mainContent
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="foundation/components/parsys">
+            <listingcomponent
+                jcr:created="{Date}2015-03-02T10:42:40.901-07:00"
+                jcr:createdBy="admin"
+                jcr:lastModified="{Date}2015-03-02T10:42:40.901-07:00"
+                jcr:lastModifiedBy="admin"
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="acs-samples/angularjs-integration/components/listingComponent"/>
+        </mainContent>
+    </jcr:content>
 </jcr:root>
