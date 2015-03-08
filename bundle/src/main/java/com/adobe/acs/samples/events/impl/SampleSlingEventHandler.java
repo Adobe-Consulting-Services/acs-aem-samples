@@ -76,6 +76,30 @@ public class SampleSlingEventHandler implements EventHandler, TopologyEventListe
         boolean handleLocally = false;
         boolean handleWithLeader = !handleLocally;
 
+
+        /**
+         * Sling Event Properties - VERY handy
+         *
+         * This aren't guaranteed to have non-null values; so check before using.
+         */
+
+        // Resource path "undergoing" the event
+        event.getProperty(SlingConstants.PROPERTY_PATH);
+
+        // Resource type
+        event.getProperty(SlingConstants.PROPERTY_RESOURCE_TYPE);
+
+        // Resource super type
+        event.getProperty(SlingConstants.PROPERTY_RESOURCE_SUPER_TYPE);
+
+        // Properties names that were added/changes/removed
+        event.getProperty(SlingConstants.PROPERTY_ADDED_ATTRIBUTES);
+        event.getProperty(SlingConstants.PROPERTY_CHANGED_ATTRIBUTES);
+        event.getProperty(SlingConstants.PROPERTY_REMOVED_ATTRIBUTES);
+
+        // User id
+        event.getProperty(SlingConstants.PROPERTY_USERID);
+
         if (!ArrayUtils.contains(event.getPropertyNames(), EventUtil.PROPERTY_DISTRIBUTE)) {
             // This is the check for a distributed event or not; if this property does not exist, it usually
             // means that this event handler should process the job, as no other event handlers
