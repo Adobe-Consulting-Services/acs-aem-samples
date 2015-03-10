@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:description="The template for the AngularJS App page partials"
+    jcr:primaryType="cq:Template"
+    jcr:title="ACS Samples - AngularJS App - Partial Page"
+    allowedPaths="[/content/acs-samples/angularjs-app(.*)]">
+    <jcr:content
+        jcr:primaryType="cq:PageContent"
+        sling:resourceType="acs-samples/angularjs-app/pages/partial-page"/>
+</jcr:root>

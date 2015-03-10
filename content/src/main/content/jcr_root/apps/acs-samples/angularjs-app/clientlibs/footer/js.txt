@@ -1,0 +1,13 @@
+#base=js
+
+angular/core/main.js
+angular/core/base-controller.js
+angular/core/routing-service.js
+
+angular/partial-controllers/home-partial-controller.js
+angular/partial-controllers/search-partial-controller.js
+angular/partial-controllers/detail-partial-controller.js
+angular/partial-controllers/checkout-partial-controller.js
+
+angular/search/search-model.js
+angular/search/search-endpoint.js
