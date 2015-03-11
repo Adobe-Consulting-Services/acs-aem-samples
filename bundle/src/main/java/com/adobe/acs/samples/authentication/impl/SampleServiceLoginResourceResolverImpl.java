@@ -21,7 +21,7 @@ import java.util.Map;
 )
 @Service
 public class SampleServiceLoginResourceResolverImpl implements SampleExecutor {
-    private static final Logger logger = LoggerFactory.getLogger(SampleServiceLoginResourceResolverImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(SampleServiceLoginResourceResolverImpl.class);
 
     // This "identifier" does NOT directly correlate to a CRX User; The mapping of this value to the CRX User 
     // happens in the ServiceUserMapper OSGi config
