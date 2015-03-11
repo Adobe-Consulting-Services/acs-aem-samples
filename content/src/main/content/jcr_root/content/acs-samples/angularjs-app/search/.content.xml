@@ -2,16 +2,16 @@
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
     jcr:primaryType="cq:Page">
     <jcr:content
-        cq:template="/apps/acs-samples/angularjs-app/templates/pagePartial"
+        cq:template="/apps/acs-samples/angularjs-app/templates/partial-page"
         jcr:primaryType="cq:PageContent"
         jcr:title="Search"
-        sling:resourceType="acs-samples/angularjs-app/pages/pagePartial">
-        <mainContent
+        sling:resourceType="acs-samples/angularjs-app/pages/partial-page">
+        <main-content
             jcr:primaryType="nt:unstructured"
             sling:resourceType="foundation/components/parsys">
-            <listingcomponent
+            <listting
                 jcr:primaryType="nt:unstructured"
-                sling:resourceType="acs-samples/angularjs-app/components/listingComponent"/>
-        </mainContent>
+                sling:resourceType="acs-samples/angularjs-app/components/listing"/>
+        </main-content>
     </jcr:content>
 </jcr:root>
