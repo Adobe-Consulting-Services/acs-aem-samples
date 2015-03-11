@@ -41,12 +41,12 @@ import java.io.IOException;
         description = "Sample implementation of a Sling Filter",
         metatype = true,
         generateComponent = true, // True if you want to leverage activate/deactivate or manage its OSGi life-cycle
-        generateService = false, // True is you want to access this as a OSGi Service (unusual for Filters)
+        generateService = true, // True; required for Sling Filters
         order = 0, // The smaller the number, the earlier in the Filter chain (can go negative);
                     // Defaults to Integer.MAX_VALUE which push it at the end of the chain
         scope = SlingFilterScope.REQUEST) // REQUEST, INCLUDE, FORWARD, ERROR, COMPONENT (REQUEST, INCLUDE, COMPONENT)
 public class SampleSlingRequestFilter implements Filter {
-    private static final Logger log = LoggerFactory.getLogger(SampleSlingRequestFilter.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(SampleSlingRequestFilter.class);
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -74,18 +74,20 @@ public class SampleSlingRequestFilter implements Filter {
         }
 
         // Content can be written tot he response before and after the chain execution
-        if (response.getContentType().contains("html")) {
+        
+        // Forcing false in this sample so else this will break AEM when installed
+        if (false && response.getContentType().contains("html")) {
             // In this example, checking for html response type since the comments are HTML format and would break
             // binary, json, etc. responses
 
             // Write some more content to the response before this chain has executed
-            response.getWriter().write("<!-- Written from the Sample Sling Filter BEFORE the next include -->");
+            //response.getWriter().write("<!-- Written from the Sample Sling Filter BEFORE the next include -->");
 
             // Proceed with the rest of the Filter chain
             chain.doFilter(request, response);
 
             // Write some more content to the response after this chain has executed
-            response.getWriter().write("<!-- Written from the Sample Sling Filter AFTER the next include -->");
+            //response.getWriter().write("<!-- Written from the Sample Sling Filter AFTER the next include -->");
         }  else {
             chain.doFilter(request, response);
         }

@@ -65,7 +65,7 @@ import java.io.IOException;
 */
 
 @Component(
-        label = "ACS AEM Sample - Thread Local Filter and Service",
+        label = "ACS AEM Samples - Thread Local Filter and Service",
         description = "This is a OGSi service that is a Sling Filter which sets ThreadLocal state AND an OSGi Service "
         + "that exposes the ThreadLocal state to other OSGi Services."
 )

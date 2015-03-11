@@ -36,16 +36,16 @@ import javax.servlet.ServletResponse;
 import java.io.IOException;
 
 @SlingFilter(
-        label = "ACS AEM Sample - Sling INCLUDE Filter",
+        label = "ACS AEM Samples - Sling INCLUDE Filter",
         description = "Sample implementation of a Sling Filter that remove decoration from cq:includes.",
         metatype = false,
         generateComponent = true, // True if you want to leverage activate/deactivate or manage its OSGi life-cycle
-        generateService = false, // True is you want to access this as a OSGi Service (unusual for Filters)
+        generateService = true, // True; required for Sling Filters
         order = 0, // The smaller the number, the earlier in the Filter chain (can go negative);
                     // Defaults to Integer.MAX_VALUE which push it at the end of the chain
         scope = SlingFilterScope.INCLUDE) // REQUEST, INCLUDE, FORWARD, ERROR, COMPONENT (REQUEST, INCLUDE, COMPONENT)
 public class SampleSlingIncludeFilter implements Filter {
-    private static final Logger log = LoggerFactory.getLogger(SampleSlingIncludeFilter.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(SampleSlingIncludeFilter.class);
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -60,7 +60,7 @@ public class SampleSlingIncludeFilter implements Filter {
         final IncludeOptions includeOptions = IncludeOptions.getOptions(request, true);
 
         // Only execute in Publish mode
-        if (includeOptions != null &&  ((mode == null || WCMMode.DISABLED.equals(mode)))) {
+        if (false && includeOptions != null &&  ((mode == null || WCMMode.DISABLED.equals(mode)))) {
             // Disable CQ Decoration on cq:includes or sling:includes, only in Publish mode
             includeOptions.setDecorationTagName("");
         }
