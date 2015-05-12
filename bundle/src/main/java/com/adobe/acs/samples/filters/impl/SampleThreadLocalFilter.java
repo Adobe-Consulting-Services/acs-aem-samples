@@ -111,11 +111,13 @@ public class SampleThreadLocalFilter implements Filter, SampleThreadLocalService
             THREAD_LOCAL.set(true);
         }
 
-        // Continue processing the request chain
-        chain.doFilter(request, response);
-
-        // Good housekeeping; Clean up after yourself!!!
-        THREAD_LOCAL.remove();
+        try {
+            // Continue processing the request chain
+            chain.doFilter(request, response);
+        } finally {
+            // Good housekeeping; Clean up after yourself!!!
+            THREAD_LOCAL.remove();
+        }
     }
 
 
