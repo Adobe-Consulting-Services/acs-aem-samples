@@ -37,8 +37,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Component(
         label = "ACS AEM Samples - Basic Service with Mutable Service state",
-        description = "Sample implementation of a service with mutable state.",
-        enabled = false
+        description = "Sample implementation of a service with mutable state."
 )
 @Service
 public class SampleMutableStateServiceImpl implements SampleMutableStateService {

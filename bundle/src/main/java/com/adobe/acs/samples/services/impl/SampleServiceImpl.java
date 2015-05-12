@@ -41,15 +41,13 @@ import java.util.Map;
 
 @Component(
         label = "ACS AEM Samples - Basic OSGi Service",
-        description = "Sample implementation of an OSGi service",
-        enabled = false)
+        description = "Sample implementation of an OSGi service")
 @Properties({
     @Property(
         label = "Service Name",
         name = SampleService.PROP_NAME,
         description = "This is an example property which is used to uniquely identify the service impl by name.",
-        value = "my-sample",
-        propertyPrivate = true
+        value = "my-sample"
     )
 })
 @Service
