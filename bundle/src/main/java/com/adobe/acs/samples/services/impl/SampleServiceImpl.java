@@ -41,7 +41,9 @@ import java.util.Map;
 
 @Component(
         label = "ACS AEM Samples - Basic OSGi Service",
-        description = "Sample implementation of an OSGi service")
+        description = "Sample implementation of an OSGi service",
+        metatype = true,
+        configurationFactory = true)
 @Properties({
     @Property(
         label = "Service Name",
