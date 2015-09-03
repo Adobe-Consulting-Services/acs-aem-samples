@@ -27,8 +27,6 @@ import org.apache.felix.scr.annotations.Properties;
 import org.apache.felix.scr.annotations.Property;
 import org.apache.felix.scr.annotations.Service;
 
-import com.adobe.granite.jmx.annotation.Description;
-
 import javax.management.DynamicMBean;
 import javax.management.NotCompliantMBeanException;
 import javax.management.openmbean.*;
@@ -70,22 +68,23 @@ public final class SampleMBeanImpl extends AnnotatedStandardMBean implements Sam
     }
 
     // Getters will invoke and display the value of the getter when the Mbean is requested
-    // Note: Only methods exposed via the interface (SampleMBean) will be visiable via JMX
+    // Note: Only methods exposed via the interface (SampleMBean) will be visible via JMX
     @Override
-    // The @Description annotation can be used to provide a "human friendly" label to the MBean entry
-    @Description("Current Message")
+    // @Description is set at the interface level
     public final String getMessage() {
         return message.get();
     }
 
     @Override
+    // @Description is set at the interface level
     public final void setMessage(String message) {
         this.message.set(message);
         this.history.put(new Date(), message);
     }
 
     @Override
-    @Description("Clear the History")
+    // @Description is set at the interface level
+    // Other methods (non-getters) can be invoked via the MBean as long as they are exposed via the interface
     public final void clearHistory() {
         this.history.clear();
     }
@@ -97,7 +96,7 @@ public final class SampleMBeanImpl extends AnnotatedStandardMBean implements Sam
      * @throws OpenDataException
      */
     @Override
-    @Description("Message History")
+    // @Description is set at the interface level
     public final TabularDataSupport getHistory() throws OpenDataException {
 
 
