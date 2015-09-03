@@ -27,6 +27,8 @@ import org.apache.felix.scr.annotations.Properties;
 import org.apache.felix.scr.annotations.Property;
 import org.apache.felix.scr.annotations.Service;
 
+import com.adobe.granite.jmx.annotation.Description;
+
 import javax.management.DynamicMBean;
 import javax.management.NotCompliantMBeanException;
 import javax.management.openmbean.*;
@@ -67,7 +69,11 @@ public final class SampleMBeanImpl extends AnnotatedStandardMBean implements Sam
         message.set("uninitialized");
     }
 
+    // Getters will invoke and display the value of the getter when the Mbean is requested
+    // Note: Only methods exposed via the interface (SampleMBean) will be visiable via JMX
     @Override
+    // The @Description annotation can be used to provide a "human friendly" label to the MBean entry
+    @Description("Current Message")
     public final String getMessage() {
         return message.get();
     }
@@ -79,6 +85,7 @@ public final class SampleMBeanImpl extends AnnotatedStandardMBean implements Sam
     }
 
     @Override
+    @Description("Clear the History")
     public final void clearHistory() {
         this.history.clear();
     }
@@ -90,6 +97,7 @@ public final class SampleMBeanImpl extends AnnotatedStandardMBean implements Sam
      * @throws OpenDataException
      */
     @Override
+    @Description("Message History")
     public final TabularDataSupport getHistory() throws OpenDataException {
 
 
