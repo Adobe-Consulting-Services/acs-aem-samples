@@ -90,7 +90,7 @@ public class SampleReplicationPreprocessor implements Preprocessor {
             // To prevent Replication from happening, throw a ReplicationException
             throw new ReplicationException(e);
         } finally {
-            if (resourceResolver == null) {
+                if (resourceResolver != null && resourceResolver.isLive()) {
                 // Always close resource resolver you open
                 resourceResolver.close();
             }
