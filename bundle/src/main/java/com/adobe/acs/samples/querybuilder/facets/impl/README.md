@@ -2,10 +2,25 @@
 
 This code can be used to test out the SampleFacetPredicateEvaluator.
 
+### Interface for OSGi Service
+
+```
+package com.adobe.acs.samples.querybuilder.facets;
+
+import org.apache.sling.api.resource.ResourceResolver;
+import javax.jcr.RepositoryException;
+
+public interface SampleSearchClient {
+    String search(ResourceResolver resourceResolver) throws RepositoryException;
+}
+```
+
+### OSGi Service Implementation
+
 ```
 package com.adobe.acs.samples.querybuilder.facets.impl;
 
-import com.adobe.acs.samples.querybuilder.facets.SampleSearch;
+import com.adobe.acs.samples.querybuilder.facets.SampleSearchClient;
 import com.day.cq.search.PredicateGroup;
 import com.day.cq.search.Query;
 import com.day.cq.search.QueryBuilder;
