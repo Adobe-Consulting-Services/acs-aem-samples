@@ -65,7 +65,12 @@ public class SampleLoginHookAuthenticationHandler implements AuthenticationHandl
             ((AuthenticationFeedbackHandler) wrappedAuthHandler).authenticationFailed(httpServletRequest, wrappedResponse, authenticationInfo);
         }
 
-        deferredRedirectResponse.releaseRedirect();
+	try {
+            deferredRedirectResponse.releaseRedirect();
+        } catch (IOException e) {
+            log.error("Could not release redirect", e);
+            httpServletResponse.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
@@ -80,7 +85,12 @@ public class SampleLoginHookAuthenticationHandler implements AuthenticationHandl
             result = ((AuthenticationFeedbackHandler) wrappedAuthHandler).authenticationSucceeded(httpServletRequest, httpServletResponse, authenticationInfo);
         }
 
-        deferredRedirectResponse.releaseRedirect();
+	try {
+            deferredRedirectResponse.releaseRedirect();
+        } catch (IOException e) {
+            log.error("Could not release redirect", e);
+            httpServletResponse.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
 
         return result;
     }
@@ -125,12 +135,13 @@ public class SampleLoginHookAuthenticationHandler implements AuthenticationHandl
 
         /**
          * Invokes super.sendRedirect(..) with the value captured in this.sendRedirect(..)
+         * @throws IOException 
          */
-        public final void releaseRedirect() {
+        public final void releaseRedirect() throws IOException {
             final String location = (String) this.request.getAttribute(ATTR_KEY);
 
             if (location != null) {
-                sendRedirect(location);
+                super.sendRedirect(location);
             }
         }
     }
