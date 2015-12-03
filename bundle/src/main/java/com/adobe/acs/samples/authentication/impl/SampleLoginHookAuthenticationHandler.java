@@ -62,7 +62,7 @@ public class SampleLoginHookAuthenticationHandler implements AuthenticationHandl
                 new DeferredRedirectHttpServletResponse(httpServletRequest, httpServletResponse);
 
         if (this.wrappedIsAuthFeedbackHandler) {
-            ((AuthenticationFeedbackHandler) wrappedAuthHandler).authenticationFailed(httpServletRequest, wrappedResponse, authenticationInfo);
+            ((AuthenticationFeedbackHandler) wrappedAuthHandler).authenticationFailed(httpServletRequest, deferredRedirectResponse, authenticationInfo);
         }
 
 	try {
