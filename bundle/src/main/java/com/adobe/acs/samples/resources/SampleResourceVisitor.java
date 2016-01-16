@@ -28,6 +28,8 @@ import org.slf4j.LoggerFactory;
 
 
 /**
+ * JavaDocs: https://docs.adobe.com/content/docs/en/cq/5-6-1/javadoc/index.html?org/apache/sling/api/resource/AbstractResourceVisitor.html
+ *
  * The Resource Visitor walks the sub-tree of a provided resource.
  *
  * This can be and efficient way to look at huge numbers of resources.
