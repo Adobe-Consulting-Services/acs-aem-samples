@@ -46,7 +46,7 @@ import javax.jcr.RepositoryException;
 
     An example call to this Sample HitWriter might look like:
 
-        http://localhost:4502/bin/querybuilder.json?...&p.hitwriter=acs-commons-sample
+        http://localhost:4502/bin/querybuilder.json?...&p.hitwriter=acs-aem-commons-sample
 
     Resulting JSON object would look like:
 
