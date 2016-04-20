@@ -46,8 +46,8 @@ import java.util.Map;
         )
 })
 @Service
-public class SampleEventHandlerAndImmediateJobExecution implements EventHandler {
-    private static final Logger log = LoggerFactory.getLogger(SampleEventHandlerAndImmediateJobExecution.class);
+public class SampleEventHandlerWithImmediateJobExecution implements EventHandler {
+    private static final Logger log = LoggerFactory.getLogger(SampleEventHandlerWithImmediateJobExecution.class);
 
     // Since this is a back-end service, its likely you will need to interact w the JCR. To do this, use the
     // ResourceResolverFactory to get the appropriate service user for this job.
@@ -73,7 +73,7 @@ public class SampleEventHandlerAndImmediateJobExecution implements EventHandler 
         // Assign a "unique" name for this job
 
         String jobName = this.getClass().getSimpleName().toString().replace(".", "/") + "/" + path;
-        // This jobName would be like: com/adobe/acs/samples/jobs/impl/SampleEventHandlerAndImmediateJobExecution/content/my-site/some-page/jcr:content
+        // This jobName would be like: com/adobe/acs/samples/jobs/impl/SampleEventHandlerWithImmediateJobExecution/content/my-site/some-page/jcr:content
         options.name(jobName);
 
         // Note the job name is what determines is a job is considered running concurrently.
