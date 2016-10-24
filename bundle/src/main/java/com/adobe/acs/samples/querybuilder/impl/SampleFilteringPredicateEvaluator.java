@@ -53,6 +53,8 @@ import javax.jcr.query.Row;
  */
 @Component(
         label = "ACS AEM Samples - Sample QueryBuilder JSON Predicate Evaluator",
+        /* The Predicate name is the suffix of the factory name, in this case 'json'. 
+           See lines 45-47 of this for how this predicate is invoked in a QueryBuilder map */
         factory = "com.day.cq.search.eval.PredicateEvaluator/json"
 )
 @Service
