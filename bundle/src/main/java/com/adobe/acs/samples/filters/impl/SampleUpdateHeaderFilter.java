@@ -109,9 +109,9 @@ public class SampleUpdateHeaderFilter implements Filter {
             FilterChain chain) throws IOException, ServletException {
         if (enabled && request instanceof HttpServletRequest
             && response instanceof HttpServletResponse) {
-            UpdateLocationResponse cookieCaptureResponse = new UpdateLocationResponse(
+            UpdateLocationResponse updateLocationResponse = new UpdateLocationResponse(
                 (HttpServletRequest) request, (HttpServletResponse) response);
-            chain.doFilter(request, cookieCaptureResponse);
+            chain.doFilter(request, updateLocationResponse);
         } else {
             chain.doFilter(request, response);
         }
