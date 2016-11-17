@@ -85,8 +85,11 @@ public class SampleSlingModel {
     private long totalMatches;
 
     @PostConstruct
+    // PostConstructs are called after all the injection has occurred, but before the Model object is returned for use.
     private void calculateTotalMatches() {
-        // This is called after all the injection has occurred
+        // Note that @PostConstruct code will always be executed on Model instantiation.
+        // If the work done in PostConstract is expensive and not always used in the consumption of the model, it is
+        // better to lazy-execute the logic in the getter and persist the result in  model state if it is requested again.
         final Map<String, String> map = new HashMap<String, String>();
         map.put("path", "/content");
         map.put("type", "cq:Page");

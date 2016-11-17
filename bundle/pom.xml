@@ -79,10 +79,6 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.adobe.aem</groupId>
-            <artifactId>aem-api</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
         </dependency>
@@ -109,9 +105,12 @@
             <version>1.0.0</version>
         </dependency>
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.5</version>
+            <groupId>org.apache.sling</groupId>
+            <artifactId>org.apache.sling.models.api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.adobe.aem</groupId>
+            <artifactId>uber-jar</artifactId>
         </dependency>
     </dependencies>
 

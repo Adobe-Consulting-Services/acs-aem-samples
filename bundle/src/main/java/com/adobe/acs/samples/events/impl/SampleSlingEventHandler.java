@@ -21,7 +21,6 @@
 package com.adobe.acs.samples.events.impl;
 
 import com.day.cq.replication.ReplicationAction;
-import org.apache.commons.lang.ArrayUtils;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Properties;
 import org.apache.felix.scr.annotations.Property;
@@ -30,7 +29,6 @@ import org.apache.felix.scr.annotations.Service;
 import org.apache.sling.api.SlingConstants;
 import org.apache.sling.discovery.TopologyEvent;
 import org.apache.sling.discovery.TopologyEventListener;
-import org.apache.sling.event.EventUtil;
 import org.apache.sling.event.jobs.JobManager;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventConstants;
@@ -39,6 +37,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
+import java.util.Map;
 
 @Component(
         label = "ACS AEM Samples - Sling Event Handler",
@@ -101,40 +100,24 @@ public class SampleSlingEventHandler implements EventHandler, TopologyEventListe
         // User id
         event.getProperty(SlingConstants.PROPERTY_USERID);
 
-        if (!ArrayUtils.contains(event.getPropertyNames(), EventUtil.PROPERTY_DISTRIBUTE)) {
-            // This is the check for a distributed event or not; if this property does not exist, it usually
-            // means that this event handler should process the job, as no other event handlers
-            // will see this event.
-
-            // There must be a JobConsumer registered for this Topic
-            jobManager.addJob("com/adobe/acs/samples/sample-job", new HashMap<String, Object>());
-
-        } else if (handleLocally && EventUtil.isLocal(event)) {
-            // This is a distributed event (first 'if' condition failed)
-
-            // If this server created the event
-            // then only this server should process the event
-
-            // This will call this's process(..) method, passing in the event obj
-            // JobUtil.processJob(..) sends/checks for an ack for this job
-
-            // Jobs guarantee the event will be processed (though doesn't guarantee the job will be
-            // processed SUCCESSFULLY)
-
-            // There must be a JobConsumer registered for this Topic
-            jobManager.addJob("com/adobe/acs/samples/sample-job", new HashMap<String, Object>());
-
-        } else if (handleWithLeader && this.isLeader) {
-            // This is a distributed event (first 'if' condition failed)
-
-            // If a event is distributed, you may only want to execute it the Leader node in
-            // the cluster.
-
-            // There must be a JobConsumer registered for this Topic
-            jobManager.addJob("com/adobe/acs/samples/sample-job", new HashMap<String, Object>());
-        } else {
-            // DO NOTHING!
+        // Accepts(..) should be a very fast check to see if a Job is needed.
+        // Do NOT create Jobs is they arent needed as this will saturate the Sling Job queue with unneccessary work.
+        if (accepts(event)) {
+            // ONly create
+            Map<String, Object> jobProperties = new HashMap<String, Object>();
+            jobProperties.put("user", event.getProperty(SlingConstants.PROPERTY_USERID));
+            jobManager.addJob("com/adobe/acs/samples/sample-job", jobProperties);
         }
+    }
+
+    /**
+     * Custom check if the event needs to do work as a Job
+     * @param event the event
+     * @return true if a Job should be created to process the vent.
+     */
+    private boolean accepts(Event event) {
+        // For this sample, don't create a job!
+        return false;
     }
 
     // This method makes this Listener cluster aware so it only responds to events on the Leader,

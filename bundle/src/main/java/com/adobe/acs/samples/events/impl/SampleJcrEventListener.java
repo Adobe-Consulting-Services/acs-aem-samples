@@ -20,13 +20,14 @@
 
 package com.adobe.acs.samples.events.impl;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Deactivate;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
 import org.apache.jackrabbit.api.observation.JackrabbitEvent;
-import org.apache.sling.event.EventUtil;
+import org.apache.sling.event.jobs.JobManager;
 import org.apache.sling.jcr.api.SlingRepository;
 import org.osgi.service.event.EventAdmin;
 import org.slf4j.Logger;
@@ -39,6 +40,7 @@ import javax.jcr.observation.EventIterator;
 import javax.jcr.observation.EventListener;
 import javax.jcr.observation.ObservationManager;
 import java.util.Dictionary;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 
@@ -53,11 +55,14 @@ import java.util.Map;
 @Service
 
 /**
- * NOTE: YOU ALMOST NEVER WANT TO USE JCR EVENT LISTENERS; USE SLING EVENT LISTENERS INSTEAD!
+ * NOTE: YOU ALMOST NEVER WANT TO USE JCR EVENT LISTENERS; USE SLING EVENT HANDLERS INSTEAD!
  */
 
 public class SampleJcrEventListener implements EventListener {
     private static final Logger log = LoggerFactory.getLogger(SampleJcrEventListener.class);
+
+    @Reference
+    private JobManager jobManager;
 
     /*
      * A combination of one or more event type constants encoded as a bitmask
@@ -155,9 +160,11 @@ public class SampleJcrEventListener implements EventListener {
                     // Example of kicking off a Sling Event which will then pick up and do the work via a Sling Event
                     // Listener; Generally this can be simply avoided by making a Sling Event Handler directly.
 
-                    final Dictionary<String, Object> eventProperties = new Hashtable<String, Object>();
-                    eventProperties.put("resourcePath", path);
-                    eventAdmin.postEvent(new org.osgi.service.event.Event(EventUtil.TOPIC_JOB, eventProperties));
+                    final Map<String, Object> jobProperties = new HashMap<String, Object>();
+                    jobProperties.put("resourcePath", path);
+
+                    // Kick off a new job based on the event
+                    jobManager.addJob("com/adobe/acs/samples/sample-job", jobProperties);
                 }
 
             } catch (RepositoryException ex) {
