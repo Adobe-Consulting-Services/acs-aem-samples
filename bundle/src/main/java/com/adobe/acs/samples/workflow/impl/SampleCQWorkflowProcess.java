@@ -45,15 +45,25 @@ import javax.jcr.Session;
 import java.util.Arrays;
 import java.util.Collections;
 
-
+/**
+ *  This class is a copy of the SampleGraniteWorkflowProcess implementation however it uses the older CQ Workflow APIs,
+ *  which are similar yet sufficiently different from the Granite Workflow APIs.
+ *
+ * Note the CQ and GraniteWorkflow APIs are NOT interchangeable, and do not have the same methods available to them.
+ *
+ * This implementation using the CQ Workflow APIs is considered the legacy approach.
+ *
+ * - CQ Workflow APIs: https://docs.adobe.com/docs/en/aem/6-1/ref/javadoc/com/day/cq/workflow/package-summary.html
+ * - Granite Workflow APIs: https://docs.adobe.com/docs/en/aem/6-1/ref/javadoc/com/adobe/granite/workflow/package-summary.html
+ */
 @Component(
-        label = "ACS AEM Samples - AEM Workflow Process",
-        description = "ACS AEM Samples - Sample Workflow Process implementation"
+        label = "ACS AEM Samples - AEM CQ Workflow Process",
+        description = "ACS AEM Samples - Sample CQ Workflow Process implementation"
 )
 @Properties({
         @Property(
                 name = Constants.SERVICE_DESCRIPTION,
-                value = "Sample Workflow Process implementation.",
+                value = "Sample CQ Workflow Process implementation.",
                 propertyPrivate = true
         ),
         @Property(
@@ -66,8 +76,8 @@ import java.util.Collections;
         )
 })
 @Service
-public class SampleProcessWorkflow implements WorkflowProcess {
-    private static final Logger log = LoggerFactory.getLogger(SampleProcessWorkflow.class);
+public class SampleCQWorkflowProcess implements WorkflowProcess {
+    private static final Logger log = LoggerFactory.getLogger(SampleCQWorkflowProcess.class);
 
     @Reference
     ResourceResolverFactory resourceResolverFactory;

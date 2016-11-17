@@ -67,7 +67,7 @@ import java.util.Collections;
  * If the Workflow Process you are wrapping is a Granite WF Process, then this wrapping process must also be a Granite Workflow Process.
  */
 public class SampleWrappingWorkflowProcess implements WorkflowProcess {
-    private static final Logger log = LoggerFactory.getLogger(SampleProcessWorkflow.class);
+    private static final Logger log = LoggerFactory.getLogger(SampleCQWorkflowProcess.class);
 
     @Reference
     ResourceResolverFactory resourceResolverFactory;
