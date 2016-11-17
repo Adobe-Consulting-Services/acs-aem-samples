@@ -31,9 +31,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Component(
-        label = "ACS AEM Samples - Adapter Factory",
-        description = "",
-        metatype = true
+        label = "ACS AEM Samples - Adapter Factory"
 )
 @Properties({
         @Property(

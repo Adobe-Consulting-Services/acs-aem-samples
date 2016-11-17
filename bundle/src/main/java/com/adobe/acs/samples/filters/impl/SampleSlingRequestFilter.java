@@ -39,7 +39,6 @@ import java.io.IOException;
 @SlingFilter(
         label = "ACS AEM Samples - Sling REQUEST Filter",
         description = "Sample implementation of a Sling Filter",
-        metatype = true,
         generateComponent = true, // True if you want to leverage activate/deactivate or manage its OSGi life-cycle
         generateService = true, // True; required for Sling Filters
         order = 0, // The smaller the number, the earlier in the Filter chain (can go negative);

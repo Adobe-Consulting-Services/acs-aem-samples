@@ -64,6 +64,10 @@ public final class SampleContentReplicationHarnessImpl extends AnnotatedStandard
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
 
+    public SampleContentReplicationHarnessImpl() throws NotCompliantMBeanException {
+        super(SampleContentReplicationHarness.class);
+    }
+
     public <T> SampleContentReplicationHarnessImpl(T implementation, Class<T> mbeanInterface) throws NotCompliantMBeanException {
         super(implementation, mbeanInterface);
     }
