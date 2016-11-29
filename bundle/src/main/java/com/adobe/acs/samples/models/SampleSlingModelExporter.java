@@ -17,7 +17,6 @@
  * limitations under the License.
  * #L%
  */
-
 package com.adobe.acs.samples.models;
 
 import com.day.cq.search.PredicateGroup;
@@ -26,15 +25,12 @@ import com.day.cq.search.QueryBuilder;
 import com.day.cq.search.result.SearchResult;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.models.annotations.Default;
-import org.apache.sling.models.annotations.DefaultInjectionStrategy;
-import org.apache.sling.models.annotations.Model;
-import org.apache.sling.models.annotations.Optional;
-import org.apache.sling.models.annotations.Required;
-import org.apache.sling.models.annotations.Source;
+import org.apache.sling.models.annotations.*;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.annotation.PostConstruct;
@@ -68,9 +64,22 @@ import java.util.Map;
 
 @Model(
         adaptables = Resource.class,
-        defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL
+        defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL,
+        resourceType = "acs-samples/components/content/sling-model"
 )
-public class SampleSlingModel {
+@Exporter(name = "jackson", extensions = "json", options = {
+        /**
+         * Jackson options:
+         * - Mapper Features: http://static.javadoc.io/com.fasterxml.jackson.core/jackson-databind/2.8.5/com/fasterxml/jackson/databind/MapperFeature.html
+         * - Serialization Features: http://static.javadoc.io/com.fasterxml.jackson.core/jackson-databind/2.8.5/com/fasterxml/jackson/databind/SerializationFeature.html
+         */
+        @ExporterOption(name = "MapperFeature.SORT_PROPERTIES_ALPHABETICALLY", value = "true"),
+        @ExporterOption(name = "SerializationFeature.WRITE_DATES_AS_TIMESTAMPS", value="false")
+})
+/**
+ * For Jackson Annotations: https://github.com/FasterXML/jackson-annotations/wiki/Jackson-Annotations
+ */
+public class SampleSlingModelExporter {
 
     @Self
     private Resource resource;
@@ -100,13 +109,13 @@ public class SampleSlingModel {
     boolean navRoot;
 
     // Inject OSGi services
-    @Inject
+    @Inject @Required
     private QueryBuilder queryBuilder;
 
     // Injection will occur over all Injectors based on Ranking;
     // Force an Injector using @Source(..)
     // If an Injector is not working; ensure you are using the latest version of Sling Models
-    @Inject @Source("sling-object")
+    @Inject @Source("sling-object") @Required
     private ResourceResolver resourceResolver;
 
     // Internal state populated via @PostConstruct logic
@@ -150,13 +159,14 @@ public class SampleSlingModel {
         return this.description.substring(0, truncateAt) + "...";
     }
 
+
     /**
      * Default implementation of the parameterizable getDescription(..).
      *
      * @return the truncated description.
      */
     public String getDescription() {
-        return this.getDescription(10);
+        return this.getDescription(100);
     }
 
     /**
@@ -169,8 +179,12 @@ public class SampleSlingModel {
     }
 
     /**
-     * @return the created at Calendar value.
+     * @return the created at Calendar value as Date.
      */
+
+    // @JsonIgnore is a Jackson Annotation specific to this field that prevents this field from being serialized into the exported JSON.
+    // For a list of Jackson Annotations see https://github.com/FasterXML/jackson-annotations/wiki/Jackson-Annotations
+    @JsonIgnore
     public Calendar getCreatedAt() {
         return createdAt;
     }
@@ -180,5 +194,16 @@ public class SampleSlingModel {
      */
     public String getPath() {
         return page.getPath();
+    }
+
+    public String getHelloWorld() {
+        return "Hello World";
+    }
+
+    // @JsonProperty is a Jackson Annotation specific to this field defines the JSON Property name to expose this method as.
+    // For a list of Jackson Annotations see https://github.com/FasterXML/jackson-annotations/wiki/Jackson-Annotations
+    @JsonProperty(value = "goodbye-world")
+    public String goodbyeWorld() {
+        return "Goodbye World";
     }
 }

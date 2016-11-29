@@ -1,0 +1,64 @@
+<!-- Manually inlining styles in HTML is of course and anti-pattern, however this is done for simplicity -->
+<style>
+    .acs-samples--content-model {
+        border: solid 8px gainsboro;
+        font-family: sans-serif;
+        margin: 2rem auto;
+        padding: 1rem;
+        width: 30rem;
+    }
+
+    .acs-samples--content-model em {
+        font-size: .8rem;
+        font-style: italic;
+    }
+
+    .acs-samples--content-model p {
+        border-bottom: solid 1px gainsboro;
+        padding-bottom: 1rem;
+        margin-right: 1rem;
+    }
+
+    .acs-samples--content-model a {
+        border: solid 1px gainsboro;
+        display: inline-block;
+        margin: 1rem 0;
+        padding: 1rem 2rem;
+        text-transform: capitalize;
+    }
+</style>
+
+<!-- Basic HTML rendition of the content model -->
+<div class="acs-samples--content-model"
+     data-sly-use.model="com.adobe.acs.samples.models.SampleSlingModel">
+    <h1>${model.title}</h1>
+    <em>Size: ${model.size}</em>
+    <p>${model.description}</p>
+    <a href="${model.path}.html">Learn more about ${model.title}</a>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
