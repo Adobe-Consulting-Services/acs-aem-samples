@@ -37,9 +37,6 @@ import javax.servlet.ServletException;
 import java.io.IOException;
 import java.util.Collections;
 
-/**
- * @author david
- */
 @SlingServlet(
         label = "Samples - Sling All Methods Servlet",
         description = "Sample implementation of a Sling All Methods Servlet.",
