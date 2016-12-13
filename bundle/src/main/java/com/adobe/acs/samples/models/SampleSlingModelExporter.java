@@ -65,8 +65,12 @@ import java.util.Map;
 @Model(
         adaptables = Resource.class,
         defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL,
+        // The resourceType is required if you want Sling to "naturally" expose this model as the exporter for a Resource.
         resourceType = "acs-samples/components/content/sling-model"
 )
+// name = the registered name of the exporter
+// extensions = the extensions this exporter is registered to
+// selector = defaults to "model", can override as needed; This is helpful if a single resource needs 2 different JSON renditions
 @Exporter(name = "jackson", extensions = "json", options = {
         /**
          * Jackson options:
