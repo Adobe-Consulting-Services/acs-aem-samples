@@ -18,6 +18,9 @@ import org.slf4j.LoggerFactory;
 import java.util.Date;
 
 /**
+ * Task Management in AEM is the set of APIs that manage Tasks, which can show up in AEM user's Inboxes.
+ * Note that Workflow workitems also show up naturally in the Inbox, so if a unit of work is part of AEM Workflow, evaluate if a Task is the correct tool to manage said work.
+ *
  * Javadocs:
  * - Task Management Package: https://docs.adobe.com/docs/en/aem/6-2/develop/ref/javadoc/com/adobe/granite/taskmanagement/package-summary.html
  * - TaskManager: https://docs.adobe.com/docs/en/aem/6-2/develop/ref/javadoc/com/adobe/granite/taskmanagement/TaskManager.html
@@ -86,7 +89,7 @@ public class SampleTaskManagementImpl implements SampleExecutor {
 
             // Optionally set priority (High, Medium, Low)
             task.setProperty("taskPriority", TASK_PRIORITY.High.toString()); // or InboxItem.Priority.HIGH
-            // Optionally set the start/due dates; if the dates do no exist, the task will only show in the Inbox list view and NOT the calendar view.
+            // Optionally set the start/due dates.
             task.setProperty("taskStartDate", new Date());
             task.setProperty("taskDueDate", new Date());
 
