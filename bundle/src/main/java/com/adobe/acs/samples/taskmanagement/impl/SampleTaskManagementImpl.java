@@ -1,10 +1,8 @@
 package com.adobe.acs.samples.taskmanagement.impl;
 
 import com.adobe.acs.samples.SampleExecutor;
-import com.adobe.granite.taskmanagement.Task;
-import com.adobe.granite.taskmanagement.TaskManager;
-import com.adobe.granite.taskmanagement.TaskManagerException;
-import com.adobe.granite.taskmanagement.TaskManagerFactory;
+import com.adobe.granite.taskmanagement.*;
+import com.day.cq.tagging.TagManager;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
@@ -15,7 +13,9 @@ import org.apache.sling.api.resource.ResourceResolverFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Task Management in AEM is the set of APIs that manage Tasks, which can show up in AEM user's Inboxes.
@@ -65,7 +65,6 @@ public class SampleTaskManagementImpl implements SampleExecutor {
         return resourceResolver.adaptTo(TaskManager.class);
     }
 
-
     /**
      * Sample method that illustrates the basics of creating a Task
      */
@@ -81,11 +80,13 @@ public class SampleTaskManagementImpl implements SampleExecutor {
             // Create new tasks using the taskManager's TaskmanagerFactory
             TaskManagerFactory taskManagerFactory = taskManager.getTaskManagerFactory();
 
-            // Tasks can be created using the default type
+            // Tasks can be created using the default type; Generally
             Task task = taskManagerFactory.newTask(Task.DEFAULT_TASK_TYPE);
 
-            task.setContentPath("/content/that/is/associated/with/this/task");
-            task.setCurrentAssignee("some-users-principal-name");
+
+            task.setName("This is the title of the task");
+            task.setDescription("This is the description of the task");
+            task.setInstructions("These are the instructions!");
 
             // Optionally set priority (High, Medium, Low)
             task.setProperty("taskPriority", TASK_PRIORITY.High.toString()); // or InboxItem.Priority.HIGH
@@ -115,9 +116,43 @@ public class SampleTaskManagementImpl implements SampleExecutor {
         }
     }
 
-    public String execute() {
-        createTask();
+    private void update(TaskManager taskManager, String taskId) {
+        // See createTask(..) above for how to get a TaskManager object
 
+        try {
+            // Get tasks via Task IDs
+            Task task = taskManager.getTask(taskId);
+
+            // Update the task using the setter methods!
+            task.setProperty("someNewProperty", "Update the task as needed");
+
+            // Persists the task changes to the JCR
+            taskManager.saveTask(task);
+
+        } catch (TaskManagerException e) {
+            log.error("Could not save task for [ {} ]", taskId, e);
+        }
+    }
+
+    private void otherActions(TaskManager taskManager, String taskId) {
+        // See createTask(..) above for how to get a TaskManager object
+
+        try {
+            // Terminates the task
+            taskManager.terminateTask(taskId);
+
+            // Completes the task and saves the actionId to the task for future reference
+            taskManager.completeTask(taskId, "complete");
+
+            // Deletes the task
+            taskManager.deleteTask(taskId);
+
+        } catch (TaskManagerException e) {
+            log.error("Could not save task for [ {} ]", taskId, e);
+        }
+    }
+
+    public String execute() {
         return "I'm a Sample Task Management code harness";
     }
 }
