@@ -80,7 +80,7 @@ public class SampleTaskManagementImpl implements SampleExecutor {
             // Create new tasks using the taskManager's TaskmanagerFactory
             TaskManagerFactory taskManagerFactory = taskManager.getTaskManagerFactory();
 
-            // Tasks can be created using the default type; Generally
+            // Tasks can be created using the default type; It is best to use the Default type until instructions on how to properly create custom types is created.
             Task task = taskManagerFactory.newTask(Task.DEFAULT_TASK_TYPE);
 
 
