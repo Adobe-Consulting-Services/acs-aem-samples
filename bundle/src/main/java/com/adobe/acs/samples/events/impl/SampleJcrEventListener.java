@@ -105,7 +105,6 @@ public class SampleJcrEventListener implements EventListener {
     @Reference
     private EventAdmin eventAdmin;
 
-    @Override
     public void onEvent(final EventIterator events) {
         // Handle events
         while (events.hasNext()) {
