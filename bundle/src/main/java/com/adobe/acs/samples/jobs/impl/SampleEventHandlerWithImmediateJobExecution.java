@@ -58,7 +58,6 @@ public class SampleEventHandlerWithImmediateJobExecution implements EventHandler
     @Reference
     private Scheduler scheduler;
 
-    @Override
     public void handleEvent(Event event) {
         /* NOTE: HANDLE EVENT MUST COMPLETE QUICKLY ELSE THE EVENT HANDLER MAY BE BLACKLISTED */
 
@@ -110,7 +109,6 @@ public class SampleEventHandlerWithImmediateJobExecution implements EventHandler
          * Run is the entry point for initiating the work to be done by this job.
          * The Sling job management mechanism will call run() to process the job.
          */
-        @Override
         public void run() {
             final Map<String, Object> authInfo = Collections.singletonMap(
                     ResourceResolverFactory.SUBSERVICE,
