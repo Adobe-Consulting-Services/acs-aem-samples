@@ -1,4 +1,4 @@
-package com.adobe.acs.samples.search.impl;
+package com.adobe.acs.samples.search.querybuilder.impl;
 
 import com.adobe.acs.samples.services.SampleService;
 import com.day.cq.search.PredicateGroup;
@@ -42,7 +42,7 @@ import java.util.Map;
         description = "Illustrates how to use the Query Builder API for querying AEM with a number of the supported options."
 )
 @Service
-public class SampleQueryBuilderImpl implements SampleService {
+public class SampleQueryBuilder implements SampleService {
     private static final Logger log = LoggerFactory.getLogger(SampleQueryBuilderImpl.class);
 
     // ISGO8601 Date format is used for the Date Predicates

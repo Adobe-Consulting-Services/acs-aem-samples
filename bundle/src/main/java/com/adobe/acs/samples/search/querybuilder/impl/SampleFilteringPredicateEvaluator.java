@@ -18,7 +18,7 @@
  * #L%
  */
 
-package com.adobe.acs.samples.querybuilder.impl;
+package com.adobe.acs.samples.search.querybuilder.impl;
 
 import com.day.cq.search.Predicate;
 import com.day.cq.search.eval.AbstractPredicateEvaluator;
