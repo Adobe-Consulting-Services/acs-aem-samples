@@ -43,7 +43,7 @@ import java.util.Map;
 )
 @Service
 public class SampleQueryBuilder implements SampleService {
-    private static final Logger log = LoggerFactory.getLogger(SampleQueryBuilderImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(SampleQueryBuilder.class);
 
     // ISGO8601 Date format is used for the Date Predicates
     final static String ISO8601_DATE = ("YYYY-MM-DDTHH:mm:ss.SSSZ");
