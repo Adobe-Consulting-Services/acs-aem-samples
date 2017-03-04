@@ -20,12 +20,10 @@
 
 package com.adobe.acs.samples.events.impl;
 
-import org.apache.commons.collections.map.HashedMap;
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Deactivate;
 import org.apache.felix.scr.annotations.Reference;
-import org.apache.felix.scr.annotations.Service;
 import org.apache.jackrabbit.api.observation.JackrabbitEvent;
 import org.apache.sling.event.jobs.JobManager;
 import org.apache.sling.jcr.api.SlingRepository;
@@ -39,25 +37,20 @@ import javax.jcr.observation.Event;
 import javax.jcr.observation.EventIterator;
 import javax.jcr.observation.EventListener;
 import javax.jcr.observation.ObservationManager;
-import java.util.Dictionary;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Map;
-
 
 @Component(
         label = "ACS AEM Samples - JCR Event Listener",
-        description = "Sample implementation of a low-level JCR Event Listener.",
-
-        // One of the few cases where immediate = true; this is so the Event Listener starts listening immediately
-        immediate = true
+        description = "Sample implementation of a low-level JCR Event Listener."
+        // @Component's that are not services default to immediate=true, so there is no need to set immediate = true explicitly.
+        // immediate = true
 )
-@Service
+// JCR EventListeners are not @Services. Only register as a Service if it is for a different (not EventListener) interface.
 
 /**
  * NOTE: YOU ALMOST NEVER WANT TO USE JCR EVENT LISTENERS; USE SLING EVENT HANDLERS INSTEAD!
  */
-
 public class SampleJcrEventListener implements EventListener {
     private static final Logger log = LoggerFactory.getLogger(SampleJcrEventListener.class);
 
