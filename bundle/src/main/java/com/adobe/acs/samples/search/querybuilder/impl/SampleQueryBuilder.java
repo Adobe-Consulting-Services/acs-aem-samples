@@ -105,7 +105,7 @@ public class SampleQueryBuilder implements SampleService {
         map.put("rangeproperty.decimal", "true");
 
 
-        https://docs.adobe.com/content/docs/en/aem/6-2/develop/ref/javadoc/com/day/cq/search/eval/RelativeDateRangePredicateEvaluator.html
+        //https://docs.adobe.com/content/docs/en/aem/6-2/develop/ref/javadoc/com/day/cq/search/eval/RelativeDateRangePredicateEvaluator.html
         //  supports the bugzilla syntax 1s 2m 3h 4d 5w 6M 7y, else in milliseconds
         map.put("relativedaterange.property", "jcr:content/cq:lastModified");
         map.put("relativedaterange.lowerBound", "60000");
