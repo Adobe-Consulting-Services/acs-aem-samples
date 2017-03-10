@@ -57,6 +57,7 @@ public class SampleReplicationContentFilter implements ReplicationContentFilter 
             }
         } catch (RepositoryException e) {
             log.error("Repository exception occurred. Do not accept this Node. {}", e);
+            return false;
         }
 
         // Default behavior is to accept
@@ -74,6 +75,7 @@ public class SampleReplicationContentFilter implements ReplicationContentFilter 
             }
         } catch (RepositoryException e) {
             log.error("Repository exception occurred. Do not accept this Property. {}", e);
+            return false;
         }
 
         // Default behavior is to return true
