@@ -24,10 +24,7 @@ package com.adobe.acs.samples.resources;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceWrapper;
 import org.apache.sling.api.resource.ValueMap;
-import org.apache.sling.api.wrappers.ValueMapDecorator;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.apache.sling.api.wrappers.CompositeValueMap;
 
 
 public class SampleResourceWrapper extends ResourceWrapper {
@@ -39,11 +36,9 @@ public class SampleResourceWrapper extends ResourceWrapper {
     public SampleResourceWrapper(final Resource resource, final ValueMap overlayProperties) {
         super(resource);
 
-        final Map<String, Object> mergedProperties = new HashMap<String, Object>();
-        mergedProperties.putAll(super.getValueMap());
-        mergedProperties.putAll(overlayProperties);
-
-        this.properties = new ValueMapDecorator(mergedProperties);
+        // The use of CompositeValueMap is used to address SLING-6420 which does not handle data type such as Date's well.
+        // Set the overlayedProperties as the "property set" and the resoure's "real" valueMap as the defaults.
+        this.properties = new CompositeValueMap(overlayProperties, super.getValueMap());
     }
 
 
