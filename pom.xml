@@ -145,7 +145,7 @@
                 <version>1.4</version>
                 <scope>test</scope>
             </dependency>
-            <!-- Put this above AEM 6.2 and lower Uber-Jar -->
+            <!-- Less than AEM 6.3 - Put this above AEM 6.2 and lower Uber-Jar -->
             <dependency>
                 <groupId>org.apache.sling</groupId>
                 <artifactId>org.apache.sling.models.api</artifactId>
@@ -155,8 +155,9 @@
             <dependency>
                 <groupId>com.adobe.aem</groupId>
                 <artifactId>uber-jar</artifactId>
-                <version>6.2.0</version>
+                <version>6.3.0-load21b</version>
                 <scope>provided</scope>
+                <classifier>apis</classifier>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
@@ -194,7 +195,7 @@
                 <version>1</version>
                 <scope>provided</scope>
             </dependency>
-            <!-- Required for Sling Models with Jackson Exporter w/ Jackson Annotations -->
+            <!-- Less than AEM 6.3 - Required for Sling Models with Jackson Exporter w/ Jackson Annotations -->
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-annotations</artifactId>
