@@ -116,9 +116,9 @@ public class SampleQueryBuilder implements SampleService {
 
         // Tag Predicate - this has been moved into an impl package so Javadocs are not genereated for it.
         map.put("tagid.property", "jcr:content/cq:tags"); // Default is 'cq:tags'
-        map.put("tagid.value", "namespace-a:some/tag");
-        map.put("tagid.1_value", "namespace-a:some/other/tag");
-        map.put("tagid.2_value", "namespace-z:something/else");
+        map.put("tagid.1_value", "namespace-a:some/tag"); // Note the #_ prefix for values is required.
+        map.put("tagid.2_value", "namespace-a:some/other/tag");
+        map.put("tagid.3_value", "namespace-z:something/else");
         map.put("tagid.and", "true"); // "Ands" the tag value matches; default is false
 
         // https://docs.adobe.com/content/docs/en/aem/6-2/develop/ref/javadoc/com/day/cq/search/eval/SimilarityPredicateEvaluator.html
