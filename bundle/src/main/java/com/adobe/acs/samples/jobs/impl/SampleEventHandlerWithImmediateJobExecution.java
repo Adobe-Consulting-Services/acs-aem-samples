@@ -1,16 +1,8 @@
 package com.adobe.acs.samples.jobs.impl;
 
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Properties;
-import org.apache.felix.scr.annotations.Property;
-import org.apache.felix.scr.annotations.Reference;
-import org.apache.felix.scr.annotations.Service;
+import org.apache.felix.scr.annotations.*;
 import org.apache.sling.api.SlingConstants;
-import org.apache.sling.api.resource.LoginException;
-import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.api.resource.ResourceResolverFactory;
-import org.apache.sling.api.resource.ValueMap;
+import org.apache.sling.api.resource.*;
 import org.apache.sling.commons.scheduler.ScheduleOptions;
 import org.apache.sling.commons.scheduler.Scheduler;
 import org.osgi.service.event.Event;
@@ -38,8 +30,8 @@ import java.util.Map;
         /* LDAP Query syntax: https://goo.gl/MCX2or */
         @Property(
                 label = "Event Filters",
-                // Only listen on events associated with nodes that end with /jcr:content
-                value =   "(path=*/jcr:content)",
+                // Only listen on events associated with paths that end with /my-event-listener-samples/jcr:content/
+                value =   "(path=*/my-event-listener-samples/jcr:content)",
                 description = "[Optional] Event Filters used to further restrict this event handler; Uses LDAP expression against event properties.",
                 name = EventConstants.EVENT_FILTER,
                 propertyPrivate = true

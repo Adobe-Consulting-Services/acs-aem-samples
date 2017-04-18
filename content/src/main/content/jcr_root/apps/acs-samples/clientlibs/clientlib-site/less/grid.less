@@ -1,0 +1,32 @@
+@import (reference) "/apps/acs-samples/clientlibs/common/variables.less";
+@import "/etc/clientlibs/wcm/foundation/grid/grid_base.less";
+
+/* The following generates the site specific Grid system using the AEM provided grid_base.less provided above */
+
+/* maximum amount of grid cells to be provided */
+@max_col: 12;
+@grid-gutter-width: 12px;
+
+/* default breakpoint */
+.aem-Grid {
+    .generate-grid(default, @max_col);
+    width: auto;
+}
+ 
+/* phone breakpoint */
+@media (max-width: 650px) {
+    .aem-Grid {
+        .generate-grid(phone, @max_col);
+    }
+}
+
+/* tablet breakpoint */
+@media (min-width: 651px) and (max-width: 1200px) {
+    .aem-Grid {
+        .generate-grid(tablet, @max_col);
+    }
+}
+
+.aem-GridColumn {
+    padding: 0 @grid-gutter-width/2;
+}

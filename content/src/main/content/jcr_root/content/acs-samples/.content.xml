@@ -4,10 +4,9 @@
     <jcr:content
         jcr:mixinTypes="[sling:VanityPath]"
         jcr:primaryType="nt:unstructured"
-        jcr:title="ACS Samples Site"
-        sling:redirect="{Boolean}true"
-        sling:redirectStatus="{Long}302"
-        sling:resourceType="foundation/components/redirect"
-        redirectTarget="/content/acs-samples/angularjs-app"/>
+        jcr:title="ACS Samples"
+        sling:resourceType="acs-samples/components/structure/page"
+        cq:allowedTemplates="[/conf/acs-samples/settings/wcm/templates/.*]"
+        />
     <angularjs-app/>
 </jcr:root>

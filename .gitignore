@@ -15,3 +15,5 @@ content/src/main/content/jcr_root/etc/.content.xml
 content/src/main/content/jcr_root/etc/designs/.content.xml
 content/src/main/content/jcr_root/etc/clientlibs/.content.xml
 .pmd
+aemdc-config.properties.temp
+.repo
