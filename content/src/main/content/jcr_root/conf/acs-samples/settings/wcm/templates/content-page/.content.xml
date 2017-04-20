@@ -5,6 +5,6 @@
         cq:templateType="/conf/acs-samples/settings/wcm/template-types/empty-page"
         jcr:description="Page used to demonstrate component use"
         jcr:primaryType="cq:PageContent"
-        jcr:title="Component Page"
+        jcr:title="Content Page"
         status="enabled"/>
 </jcr:root>

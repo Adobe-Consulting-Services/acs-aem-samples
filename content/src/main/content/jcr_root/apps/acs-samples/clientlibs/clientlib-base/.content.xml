@@ -4,7 +4,7 @@
     allowProxy="{Boolean}true"
     categories="[acs-samples.base]"
     dependencies="[jquery]"
-    embed="[acs-samples.site,acs-samples.structure]"/>
+    embed="[acs-samples.site,acs-samples.structure,acs-samples.components]"/>
 <!--
 The base is the 'aggregator' clientlib that will expose all the down-stream clientlibs as a single rsource that can be included as a single request (or 1 per CSS and 1 per JS)
 

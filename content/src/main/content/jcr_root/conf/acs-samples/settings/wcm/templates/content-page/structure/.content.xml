@@ -3,9 +3,7 @@
     jcr:primaryType="cq:Page">
     <jcr:content
         cq:deviceGroups="[/etc/mobile/groups/responsive]"
-        cq:lastModified="{Date}2017-04-18T17:15:43.464-04:00"
-        cq:lastModifiedBy="admin"
-        cq:template="/conf/acs-samples/settings/wcm/templates/component-page"
+        cq:template="/conf/acs-samples/settings/wcm/templates/content-page"
         jcr:primaryType="cq:PageContent"
         sling:resourceType="acs-samples/components/structure/page">
         <root
@@ -19,6 +17,9 @@
                     <default
                         jcr:primaryType="nt:unstructured"
                         width="8"/>
+                    <phone
+                        jcr:primaryType="nt:unstructured"
+                        width="12"/>
                 </cq:responsive>
             </responsivegrid>
             <responsivegrid_rail
@@ -29,6 +30,9 @@
                     <default
                         jcr:primaryType="nt:unstructured"
                         width="4"/>
+                    <phone
+                        jcr:primaryType="nt:unstructured"
+                        behavior="hide"/>
                 </cq:responsive>
             </responsivegrid_rail>
             <responsivegrid_fullwidth

@@ -3,7 +3,7 @@
     jcr:primaryType="cq:ClientLibraryFolder"
     allowProxy="{Boolean}true"
     categories="[acs-samples.dependencies]"
-    embed="[jquery,granite.utils,granite.jquery,cq.jquery]"/>
+    embed="[jquery,granite.utils,granite.jquery,cq.jquery,acs-samples.vendor]"/>
 <!--
 Include all dependencies required for this site.
 Typically this will be comprised of AEM-provided clientlibs, or 3rd party clientlibs added by the customizer.
