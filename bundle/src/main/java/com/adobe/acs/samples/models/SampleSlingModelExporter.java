@@ -28,6 +28,7 @@ import com.day.cq.wcm.api.PageManager;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang.StringUtils;
+import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.*;
@@ -63,10 +64,12 @@ import java.util.Map;
 /** THIS SAMPLE TARGETS SLING MODELS v1.3+ **/
 
 @Model(
-        adaptables = Resource.class,
-        defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL,
+        // This must adapt from a SlingHttpServletRequest, since this is invoked directly via a request, and not via a resource.
+        // If can specify Resource.class as a second adaptable as needed
+        adaptables = { SlingHttpServletRequest.class },
         // The resourceType is required if you want Sling to "naturally" expose this model as the exporter for a Resource.
-        resourceType = "acs-samples/components/content/sling-model"
+        resourceType = "acs-samples/components/content/sling-model",
+        defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL
 )
 // name = the registered name of the exporter
 // extensions = the extensions this exporter is registered to
@@ -160,16 +163,20 @@ public class SampleSlingModelExporter {
      * @return the truncated description.
      */
     public String getDescription(int truncateAt) {
-        return this.description.substring(0, truncateAt) + "...";
+        if (this.description.length() > truncateAt) {
+            return StringUtils.substring(this.description, truncateAt) + "...";
+        } else {
+            return this.description;
+        }
     }
-
-
+    
     /**
      * Default implementation of the parameterizable getDescription(..).
      *
      * @return the truncated description.
      */
     public String getDescription() {
+        // This is just an example of including business logic in the Sling Model;
         return this.getDescription(100);
     }
 
