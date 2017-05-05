@@ -1,4 +1,4 @@
-package com.adobe.acs.samples.events.impl;
+package com.adobe.acs.samples.events;
 
 import com.adobe.acs.samples.SampleExecutor;
 import com.day.cq.commons.jcr.JcrObservationThrottle;
