@@ -169,7 +169,7 @@ public class SampleSlingModelExporter {
             return this.description;
         }
     }
-    
+
     /**
      * Default implementation of the parameterizable getDescription(..).
      *
