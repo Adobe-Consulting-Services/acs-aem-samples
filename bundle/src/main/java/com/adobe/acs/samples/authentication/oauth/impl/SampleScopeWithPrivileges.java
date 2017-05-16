@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 @Component(
         service = Scope.class
 )
+// This class must implement ScopeWithPrivileges, but it must register as an OSGi Service against Scope.class
 public class SampleScopeWithPrivileges implements ScopeWithPrivileges {
     public static final String WRITE_DAM_SCOPE_NAME = "vendor-x__write-dam";
     public static final String BASE_PATH = "/content/dam";
