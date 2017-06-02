@@ -5,6 +5,7 @@ import com.adobe.granite.taskmanagement.Task;
 import com.adobe.granite.taskmanagement.TaskManager;
 import com.adobe.granite.taskmanagement.TaskManagerException;
 import com.adobe.granite.taskmanagement.TaskManagerFactory;
+import com.adobe.granite.workflow.exec.InboxItem;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
@@ -89,7 +90,7 @@ public class SampleTaskManagementImpl implements SampleExecutor {
             task.setInstructions("These are the instructions!");
 
             // Optionally set priority (High, Medium, Low)
-            task.setProperty("taskPriority", TASK_PRIORITY.High.toString()); // or InboxItem.Priority.HIGH
+            task.setPriority(InboxItem.Priority.HIGH); // or
             // Optionally set the start/due dates.
             task.setProperty("taskStartDate", new Date());
             task.setProperty("taskDueDate", new Date());
