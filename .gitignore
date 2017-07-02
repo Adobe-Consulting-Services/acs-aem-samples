@@ -3,6 +3,8 @@
 .project
 .settings/
 target/
+.repo
+aemdc-config.*
 
 #Intellij
 .idea/
