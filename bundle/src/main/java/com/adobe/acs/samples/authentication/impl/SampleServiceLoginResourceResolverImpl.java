@@ -111,4 +111,9 @@ public class SampleServiceLoginResourceResolverImpl implements SampleExecutor {
 
         return sw.toString();
     }
+
+    @Override
+    public String execute(ResourceResolver resourceResolver) {
+        return execute();
+    }
 }

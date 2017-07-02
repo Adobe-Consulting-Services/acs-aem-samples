@@ -86,13 +86,14 @@ public class ClusterAwareScheduler implements Runnable, TopologyEventListener {
         }
     }
 
-    /** Topology Aware Methods **/
+    /** Topology Aware Methods, exposed via TopologyEventListener **/
 
     @Override
     public void handleTopologyEvent(final TopologyEvent event) {
-        if (event.getType() == TopologyEvent.Type.TOPOLOGY_CHANGED
-                || event.getType() == TopologyEvent.Type.TOPOLOGY_INIT) {
+        if (event.getType() == TopologyEvent.Type.TOPOLOGY_CHANGED || event.getType() == TopologyEvent.Type.TOPOLOGY_INIT) {
             this.isLeader = event.getNewView().getLocalInstance().isLeader();
+        } else if (event.getType() == TopologyEvent.Type.TOPOLOGY_CHANGING) {
+            this.isLeader = false;
         }
     }
 }

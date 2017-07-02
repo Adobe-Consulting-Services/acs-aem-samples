@@ -1,0 +1,4 @@
+#base=.
+
+# This file must exist for the clientlib to respond to the CSS client library request
+

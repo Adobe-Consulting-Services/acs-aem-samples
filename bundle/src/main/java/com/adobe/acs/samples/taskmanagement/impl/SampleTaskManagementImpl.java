@@ -1,8 +1,11 @@
 package com.adobe.acs.samples.taskmanagement.impl;
 
 import com.adobe.acs.samples.SampleExecutor;
-import com.adobe.granite.taskmanagement.*;
-import com.day.cq.tagging.TagManager;
+import com.adobe.granite.taskmanagement.Task;
+import com.adobe.granite.taskmanagement.TaskManager;
+import com.adobe.granite.taskmanagement.TaskManagerException;
+import com.adobe.granite.taskmanagement.TaskManagerFactory;
+import com.adobe.granite.workflow.exec.InboxItem;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
@@ -13,9 +16,7 @@ import org.apache.sling.api.resource.ResourceResolverFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Task Management in AEM is the set of APIs that manage Tasks, which can show up in AEM user's Inboxes.
@@ -89,7 +90,7 @@ public class SampleTaskManagementImpl implements SampleExecutor {
             task.setInstructions("These are the instructions!");
 
             // Optionally set priority (High, Medium, Low)
-            task.setProperty("taskPriority", TASK_PRIORITY.High.toString()); // or InboxItem.Priority.HIGH
+            task.setPriority(InboxItem.Priority.HIGH); // or
             // Optionally set the start/due dates.
             task.setProperty("taskStartDate", new Date());
             task.setProperty("taskDueDate", new Date());
@@ -154,5 +155,10 @@ public class SampleTaskManagementImpl implements SampleExecutor {
 
     public String execute() {
         return "I'm a Sample Task Management code harness";
+    }
+
+    @Override
+    public String execute(ResourceResolver resourceResolver) {
+        return execute();
     }
 }
