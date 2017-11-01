@@ -8,3 +8,4 @@ The samples in this project are not intended and should never be installed on AE
  These samples have not been tested for functionality; please report and bugs/incorrectness to the ACS AEM Samples
 GitHub Issues project.
 
+Hi Pierre!
