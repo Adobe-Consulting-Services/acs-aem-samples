@@ -39,7 +39,7 @@ import java.io.IOException;
                 value = "/bin/sample/felix/servlet"
         ),
         @Property( name = HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_SELECT,
-                value = (HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_NAME + "=org.osgi.service.http")
+                value = ("(" + HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_NAME + "=org.osgi.service.http)")
         )
 })
 @Service(value = Servlet.class)
