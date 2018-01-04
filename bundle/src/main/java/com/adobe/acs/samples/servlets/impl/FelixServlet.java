@@ -35,6 +35,7 @@ import java.io.IOException;
 
 @Component
 @Properties({
+        // http://javadox.com/org.osgi/osgi.cmpn/6.0.0/org/osgi/service/http/whiteboard/HttpWhiteboardConstants.html#HTTP_WHITEBOARD_SERVLET_PATTERN
         @Property( name = HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_PATTERN,
                 value = "/bin/sample/felix/servlet"
         ),

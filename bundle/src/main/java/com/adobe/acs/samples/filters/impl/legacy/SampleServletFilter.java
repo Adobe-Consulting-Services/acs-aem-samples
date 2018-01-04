@@ -1,4 +1,4 @@
-package com.adobe.acs.samples.filters.impl;
+package com.adobe.acs.samples.filters.impl.legacy;
 
 import java.io.IOException;
 
@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.felix.scr.annotations.*;
 import org.osgi.service.component.ComponentContext;
-import org.osgi.service.http.whiteboard.HttpWhiteboardConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,26 +25,26 @@ import org.slf4j.LoggerFactory;
  * This prevents:
  * - Understanding accessing any Sling Context; Permissions, Resource Resolution, etc.
  *
+ *
+ * NOTE: THIS SAMPLE IS FOR AEM 6.1 AND EARLIER!!! See the non-legacy SampleServletFilter.java example for AEM 6.2 and later.
  */
-
-// Registered Felix Servlet Filters in AEM can be viewed her: http://localhost:4502/system/console/status-httpwhiteboard
 @Component
 @Properties({
-                    // A major difference from Sling Filters is Servlet Filters can be registered via the Felix HTTP Whiteboard to URL path patterns.
 
-                    // A Pattern OR Regex must be provided.
+    // A major difference from Sling Filters is Servlet Filters can be registered via the Felix HTTP Whiteboard to URL path patterns.
+    @Property(
+            name = "pattern",
+            value = "/content/samples.*",
+            propertyPrivate = true
+    ),
 
-                    // http://javadox.com/org.osgi/osgi.cmpn/6.0.0/org/osgi/service/http/whiteboard/HttpWhiteboardConstants.html#HTTP_WHITEBOARD_FILTER_PATTERN
-                    @Property(name = HttpWhiteboardConstants.HTTP_WHITEBOARD_FILTER_PATTERN,
-                                value = { "/content/samples/" }),
-
-                    // http://javadox.com/org.osgi/osgi.cmpn/6.0.0/org/osgi/service/http/whiteboard/HttpWhiteboardConstants.html#HTTP_WHITEBOARD_FILTER_REGEX
-                    @Property(name = HttpWhiteboardConstants.HTTP_WHITEBOARD_FILTER_REGEX,
-                              value = { "/[a-z]*" }),
-
-                    // http://javadox.com/org.osgi/osgi.cmpn/6.0.0/org/osgi/service/http/whiteboard/HttpWhiteboardConstants.html#HTTP_WHITEBOARD_CONTEXT_SELECT
-                    @Property(name = HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_SELECT,
-                                value = "(" + HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_NAME + "=*)")
+    // The filter.order is used to determine the order of Felix Servlet Filters; the Smaller the number, the earlier it will be invoked.
+    // - Registered Felix Servlet Filters in AEM can be viewed her: http://localhost:4502/system/console/status-httpwhiteboard
+    @Property(
+        name = "filter.order",
+        intValue = -10000,
+        propertyPrivate = true
+    )
 })
 @Service
 public class SampleServletFilter implements Filter {
