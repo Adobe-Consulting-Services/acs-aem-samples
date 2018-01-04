@@ -32,7 +32,10 @@ import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.*;
+import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.apache.sling.models.annotations.injectorspecific.Self;
+import org.apache.sling.models.annotations.injectorspecific.SlingObject;
+import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -89,40 +92,53 @@ import java.util.Map;
 public class SampleSlingModelExporter {
 
     @Self
+    private SlingHttpServletRequest request;
+
+    @Self
     private Resource resource;
 
     // Inject a property name whose name does NOT match the Model field name
     // Since the Default inject strategy is OPTIONAL (set on the @Model), we can mark injections as @Required. @Optional can be used if the default strategy is REQUIRED.
-    @Inject @Named("jcr:title") @Required
+    @ValueMapValue
+    @Named("jcr:title")
+    @Required
     private String title;
 
     // Inject a fields whose property name DOES match the model field name
-    @Inject @Optional
+    @ValueMapValue
+    @Optional
     private String pageTitle;
 
     // Mark as Optional
-    @Inject @Optional
+    @ValueMapValue
+    @Optional
     private String navTitle;
 
     // Provide a default value if the property name does not exist
-    @Inject @Named("jcr:description") @Default(values = "No description provided")
+    @ValueMapValue
+    @Named("jcr:description")
+    @Default(values = "No description provided")
     private String description;
 
     // Various data types can be injected
-    @Inject @Named("jcr:created")
+    @ValueMapValue
+    @Named("jcr:created")
     private Calendar createdAt;
 
-    @Inject
+    @ValueMapValue
+    @Default(booleanValues = false)
     boolean navRoot;
 
     // Inject OSGi services
-    @Inject @Required
+    @OSGiService
+    @Required
     private QueryBuilder queryBuilder;
 
     // Injection will occur over all Injectors based on Ranking;
     // Force an Injector using @Source(..)
     // If an Injector is not working; ensure you are using the latest version of Sling Models
-    @Inject @Source("sling-object") @Required
+    @SlingObject
+    @Required
     private ResourceResolver resourceResolver;
 
     // Internal state populated via @PostConstruct logic

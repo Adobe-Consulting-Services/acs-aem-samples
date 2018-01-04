@@ -27,15 +27,13 @@ import com.day.cq.search.result.SearchResult;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import org.apache.commons.lang.StringUtils;
+import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.models.annotations.Default;
-import org.apache.sling.models.annotations.DefaultInjectionStrategy;
-import org.apache.sling.models.annotations.Model;
-import org.apache.sling.models.annotations.Optional;
-import org.apache.sling.models.annotations.Required;
-import org.apache.sling.models.annotations.Source;
+import org.apache.sling.models.annotations.*;
 import org.apache.sling.models.annotations.injectorspecific.Self;
+import org.apache.sling.models.annotations.injectorspecific.SlingObject;
+import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -67,36 +65,53 @@ import java.util.Map;
 /** THIS SAMPLE TARGETS SLING MODELS v1.3+ **/
 
 @Model(
-        adaptables = Resource.class,
+        // (Almost) always adapt from the SlingHttpServetlRequest object; Adapting from multiple classes is supported,
+        // however often results in unsatisfied injections and complex logic in the @PostConstruct to derive the required
+        // field values.
+        adaptables = SlingHttpServletRequest.class,
         defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL
 )
 public class SampleSlingModel {
 
     @Self
+    private SlingHttpServletRequest request;
+
+    @Self @Via("resource")
     private Resource resource;
+
+    // ALWAYS try to use explicit injectors (ie. @ValueMapValue vs the ambiguous @Inject).
+    // This reduces confusion of how values are being injected.
 
     // Inject a property name whose name does NOT match the Model field name
     // Since the Default inject strategy is OPTIONAL (set on the @Model), we can mark injections as @Required. @Optional can be used if the default strategy is REQUIRED.
-    @Inject @Named("jcr:title") @Required
+    @ValueMapValue
+    @Named("jcr:title")
+    @Required
     private String title;
 
     // Inject a fields whose property name DOES match the model field name
-    @Inject @Optional
+    @ValueMapValue
+    @Optional
     private String pageTitle;
 
     // Mark as Optional
-    @Inject @Optional
+    @ValueMapValue
+    @Optional
     private String navTitle;
 
     // Provide a default value if the property name does not exist
-    @Inject @Named("jcr:description") @Default(values = "No description provided")
+    @ValueMapValue
+    @Named("jcr:description")
+    @Default(values = "No description provided")
     private String description;
 
     // Various data types can be injected
-    @Inject @Named("jcr:created")
+    @ValueMapValue
+    @Named("jcr:created")
     private Calendar createdAt;
 
-    @Inject
+    @ValueMapValue
+    @Default(booleanValues = false)
     boolean navRoot;
 
     // Inject OSGi services
@@ -106,7 +121,7 @@ public class SampleSlingModel {
     // Injection will occur over all Injectors based on Ranking;
     // Force an Injector using @Source(..)
     // If an Injector is not working; ensure you are using the latest version of Sling Models
-    @Inject @Source("sling-object")
+    @SlingObject
     private ResourceResolver resourceResolver;
 
     // Internal state populated via @PostConstruct logic
@@ -147,7 +162,11 @@ public class SampleSlingModel {
      * @return the truncated description.
      */
     public String getDescription(int truncateAt) {
-        return this.description.substring(0, truncateAt) + "...";
+        if (this.description != null && this.description.length() > truncateAt) {
+            return StringUtils.substring(this.description, truncateAt) + "...";
+        } else {
+            return this.description;
+        }
     }
 
     /**
