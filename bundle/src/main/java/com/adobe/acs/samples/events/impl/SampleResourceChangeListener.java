@@ -78,7 +78,7 @@ public class SampleResourceChangeListener implements ResourceChangeListener, Ext
                     break;
                 case CHANGED:
                     log.debug("Change Type CHANGED: {}", change);
-                    if (change.getAddedPropertyNames().contains("someOtherProperty")) {
+                    if (change.getChangedPropertyNames().contains("someOtherProperty")) {
                         // Do some other work
                     }
                     break;
