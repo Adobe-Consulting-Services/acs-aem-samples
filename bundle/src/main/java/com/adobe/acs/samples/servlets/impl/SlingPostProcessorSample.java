@@ -30,7 +30,10 @@ public class SlingPostProcessorSample implements SlingPostProcessor {
         if (accepts(request)) {
 
             // Apply your custom changes: first, adapt the resource to a ModifiableValueMap
-            // You need to get the resource from the ResourceResolver for the adaptTo to work. 
+            // You need to get the resource from the ResourceResolver for the adaptTo to work.
+
+
+
             final Resource resource = request.getResourceResolver().getResource( request.getResource().getPath() );
             final ModifiableValueMap properties = resource.adaptTo(ModifiableValueMap.class);
 
