@@ -32,7 +32,6 @@ import org.apache.felix.scr.annotations.*;
 import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.api.resource.ResourceResolverFactory;
 import org.apache.sling.jcr.resource.JcrResourceConstants;
 import org.osgi.framework.Constants;
 import org.slf4j.Logger;
@@ -76,9 +75,6 @@ import java.util.Collections;
 public class SampleGraniteWorkflowProcess implements WorkflowProcess {
     private static final Logger log = LoggerFactory.getLogger(SampleGraniteWorkflowProcess.class);
 
-    @Reference
-    ResourceResolverFactory resourceResolverFactory;
-
     /**
      * The method called by the AEM Workflow Engine to perform Workflow work.
      *
@@ -89,7 +85,6 @@ public class SampleGraniteWorkflowProcess implements WorkflowProcess {
      */
     @Override
     public void execute(WorkItem workItem, WorkflowSession workflowSession, MetaDataMap args) throws WorkflowException {
-
 
         /* Get the Workflow Payload */
 
@@ -129,37 +124,21 @@ public class SampleGraniteWorkflowProcess implements WorkflowProcess {
         log.debug("Single Value: {}", singleValue);
         log.debug("Multi Value: {}", Arrays.toString(multiValue));
 
-
         /* Get data set in prior Workflow Steps */
         String previouslySetData = this.getPersistedData(workItem, "set-in-previous-workflow-step", String.class);
 
-
         /* Do work on the Payload; Remember to use Sling APIs as much as possible */
+        
+        ResourceResolver resourceResolver = workflowSession.adaptTo(ResourceResolver.class);
+    
+        // Get the resource the payload points to; Keep in mind the payload can be any resource including
+        // a AEM WF Package which must be processes specially.
+        Resource resource = resourceResolver.getResource(path);
 
-        ResourceResolver resourceResolver = null;
-        try {
-            // Get the ResourceResolver from workflow session
-            resourceResolver = getResourceResolver(workflowSession.adaptTo(Session.class));
+        // Do work ....
 
-            // Get the resource the payload points to; Keep in mind the payload can be any resource including
-            // a AEM WF Package which must be processes specially.
-            Resource resource = resourceResolver.getResource(path);
-
-
-            // Do work ....
-
-
-            // Save data for use in a subsequent Workflow step
-            persistData(workItem, workflowSession, "set-for-next-workflow-step", "whatever data you want");
-
-        } catch (Exception e) {
-            // If an error occurs that prevents the Workflow from completing/continuing - Throw a WorkflowException
-            // and the WF engine will retry the Workflow later (based on the AEM Workflow Engine configuration).
-
-            log.error("Unable to complete processing the Workflow Process step", e);
-
-            throw new WorkflowException("Unable to complete processing the Workflow Process step", e);
-        }
+        // Save data for use in a subsequent Workflow step
+        persistData(workItem, workflowSession, "set-for-next-workflow-step", "whatever data you want");
     }
 
 
@@ -188,11 +167,4 @@ public class SampleGraniteWorkflowProcess implements WorkflowProcess {
         MetaDataMap map = workItem.getWorkflow().getWorkflowData().getMetaDataMap();
         return map.get(key, defaultValue);
     }
-
-    private ResourceResolver getResourceResolver(Session session) throws LoginException {
-            return resourceResolverFactory.getResourceResolver(Collections.<String, Object>singletonMap(JcrResourceConstants.AUTHENTICATION_INFO_SESSION,
-                    session));
-    }
-
-
 }
