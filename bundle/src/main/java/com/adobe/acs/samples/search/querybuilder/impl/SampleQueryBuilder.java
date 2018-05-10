@@ -156,13 +156,21 @@ public class SampleQueryBuilder implements SampleService {
         SearchResult result = query.getResult();
 
         try {
+            // QueryBuilder has a leaking ResourceResolver, so the following work around is required.
+            ResourceResolver leakingResourceResolver = null;    
+                
             // Iterate over the Hits if you need special information
             for (final Hit hit : result.getHits()) {
+                if (leakingResourceResolver == null) {
+                   // Get a reference to QB's leaking ResourceResolver
+                   leakingResourceResolver = hit.getResource().getResourceResolver();
+                }
                 // Returns the path of the hit result
                 String path = hit.getPath();
 
-                Resource resource = hit.getResource();
-                ValueMap properties = hit.getProperties();
+                // Always get your resources that you might pass out of this method by resolving w/ the ResourceResolver YOU provide (and not the leaking one in QB as we will close the leaking resolver in the finally block)    
+                Resource resource = resourceResolver.getResource(hit.getPath());
+                ValueMap properties = resource.getValueMap();
 
                 // Requires setting query.setExcerpt(true) prior to query execution
                 String excerpt = hit.getExcerpt();
@@ -172,12 +180,21 @@ public class SampleQueryBuilder implements SampleService {
             // A common use case it to collect all the resources that represent hits and put them in a list for work outside of the search service
             final List<Resource> resources = new ArrayList<Resource>();
             for (final Hit hit : result.getHits()) {
-                resources.add(hit.getResource());
+                if (leakingResourceResolver == null) {
+                   // Get a reference to QB's leaking ResourceResolver
+                   leakingResourceResolver = hit.getResource().getResourceResolver();
+                }
+                resources.add(resourceResolver.getResource(hit.getPath()));
             }
 
         } catch (RepositoryException e) {
             log.error("Error collecting search results", e);
-        }
+        } finally {
+            if (leakingResourceResolver != null) {
+                // Always Close the leaking QueryBuilder resourceResolver.
+                leakingResourceResolver.close();    
+            }        
+        }        
     }
 
     public String helloWorld() {
