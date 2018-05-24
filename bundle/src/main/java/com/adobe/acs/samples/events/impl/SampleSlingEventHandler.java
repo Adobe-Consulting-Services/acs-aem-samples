@@ -93,10 +93,14 @@ public class SampleSlingEventHandler implements EventHandler, TopologyEventListe
         event.getProperty(SlingConstants.PROPERTY_RESOURCE_SUPER_TYPE);
 
         // Properties names that were added/changes/removed
+        /*
+        * NOTE: YOU CAN NO LONGER GET THESE PROPERTIES IN AEM 6.3+ 
+          TO GET OBTAIN THEM, YOU MUST IMPLMENT A JCR OBSERVATION LISTENER AND PARSE THE PATH PROPERTY ON THE EVENT.
         event.getProperty(SlingConstants.PROPERTY_ADDED_ATTRIBUTES);
         event.getProperty(SlingConstants.PROPERTY_CHANGED_ATTRIBUTES);
         event.getProperty(SlingConstants.PROPERTY_REMOVED_ATTRIBUTES);
-
+        */
+            
         // User id
         event.getProperty(SlingConstants.PROPERTY_USERID);
 
