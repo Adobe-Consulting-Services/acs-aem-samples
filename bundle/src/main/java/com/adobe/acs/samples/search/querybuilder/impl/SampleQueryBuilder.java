@@ -155,10 +155,10 @@ public class SampleQueryBuilder implements SampleService {
 
         SearchResult result = query.getResult();
 
+        // QueryBuilder has a leaking ResourceResolver, so the following work around is required.
+        ResourceResolver leakingResourceResolver = null;
+
         try {
-            // QueryBuilder has a leaking ResourceResolver, so the following work around is required.
-            ResourceResolver leakingResourceResolver = null;    
-                
             // Iterate over the Hits if you need special information
             for (final Hit hit : result.getHits()) {
                 if (leakingResourceResolver == null) {
