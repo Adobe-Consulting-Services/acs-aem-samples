@@ -114,9 +114,9 @@ public class SampleOsgiR6AnnotationsImpl implements SampleExecutor {
     @Activate
     @Modified
     protected void activate(Config config) {
-        log.info("Max Size from OSGi Configuration: {}", config.maxSize());
+        log.info("Max Size from OSGi Configuration: {}", config.max_size());
         log.info("Items from OSGi Configuration: {}", Arrays.asList(config.items()));
-        log.info("Selected Foo/Bar option from OSGi Configuration: {}", config.fooBar());
+        log.info("Selected Foo/Bar option from OSGi Configuration: {}", config.foo_bar());
 
         this.config = config;
     }
