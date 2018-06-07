@@ -52,6 +52,8 @@ import java.util.Collection;
  *      <artifactId>maven-bundle-plugin</artifactId>
  *      <version>3.3.0</version>
  * </plugin>
+ *
+ * Also see the great write up on new OSGi annotations by Nate Yolles: http://www.nateyolles.com/blog/2017/05/osgi-declarative-services-annotations-in-aem 
  */
 @Component(
         // Provide the service property, and list of service interfaces if this @Component should be registered as a service
