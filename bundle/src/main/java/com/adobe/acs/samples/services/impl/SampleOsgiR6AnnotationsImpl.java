@@ -73,8 +73,7 @@ public class SampleOsgiR6AnnotationsImpl implements SampleExecutor {
             description = "This is generated via the OSGi R6 Annotated Component"
     )
     @interface Config {
-        // _'s are transformed to . when the OSGi property names are generated.
-
+        // The _'s in the method names (se below) are transformed to . when the OSGi property names are generated.
         // Example: max_size -> max.size, user_name_default -> user.name.default
 
         @AttributeDefinition(
@@ -85,7 +84,7 @@ public class SampleOsgiR6AnnotationsImpl implements SampleExecutor {
                 required = false, // Defaults to true
                 cardinality = 0
         )
-        int maxSize() default 10;
+        int max_size() default 10;
 
         // Multiple values
         @AttributeDefinition(
@@ -100,7 +99,7 @@ public class SampleOsgiR6AnnotationsImpl implements SampleExecutor {
                     @Option(label = "Option Bar", value = "bar"),
             }
         )
-        String fooBar() default "bar";
+        String foo_bar() default "bar";
     }
 
     private Config config;
