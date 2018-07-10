@@ -28,18 +28,17 @@ import com.adobe.granite.workflow.exec.WorkflowData;
 import com.adobe.granite.workflow.exec.WorkflowProcess;
 import com.adobe.granite.workflow.metadata.MetaDataMap;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.felix.scr.annotations.*;
-import org.apache.sling.api.resource.LoginException;
+import org.apache.felix.scr.annotations.Component;
+import org.apache.felix.scr.annotations.Properties;
+import org.apache.felix.scr.annotations.Property;
+import org.apache.felix.scr.annotations.Service;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.jcr.resource.JcrResourceConstants;
 import org.osgi.framework.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.jcr.Session;
 import java.util.Arrays;
-import java.util.Collections;
 
 /**
  *  This class is a copy of the SampleCQWorkflowProcess implementation however it uses the newer Granite Workflow APIs,
