@@ -4,9 +4,9 @@
           jcr:primaryType="sling:OsgiConfig"
           httpcache.config.order="950"
           httpcache.config.filter-scope="INCLUDE"
-          httpcache.config.requesturi.patterns="[/content/acs-samples/(.*)]"
+          httpcache.config.requesturi.patterns="[/content/acs-samples/(?!.*(headers/|footers/)).*]"
           httpcache.config.request.authentication="both"
-          httpcache.config.invalidation.oak.paths="[content/acs-samples/(headers|footers)/(.*).content.html]"
+          httpcache.config.invalidation.oak.paths="[/content/acs-samples/(headers|footers)(/.*)/jcr:content.content.html]"
           cacheConfigExtension.target="(&amp;(service.factoryPid=com.adobe.acs.samples.httpcache.ResourcePathCacheExtension)(configName=layout))"
           cacheKeyFactory.target="(&amp;(service.factoryPid=com.adobe.acs.samples.httpcache.ResourcePathCacheExtension)(configName=layout))"
 />
