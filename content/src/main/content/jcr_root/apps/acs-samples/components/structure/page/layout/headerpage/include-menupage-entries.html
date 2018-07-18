@@ -1,0 +1,7 @@
+<template data-sly-template.includeChildEntries="${'com.day.cq.wcm.api.Page' @ resourcePage}">
+
+    <sly data-sly-list.childEntry="${resourcePage.listChildren}">
+        <sly data-sly-resource="${childEntry.path @ appendPath='jcr:content', resourceType=childEntry.properties['sling:resourceType']}"/>
+    </sly>
+
+</template>

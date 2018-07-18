@@ -1,0 +1,9 @@
+<header>
+
+    <div class="Logo">Logo component</div>
+
+    <menu>
+        <sly data-sly-use.includeMenuEntries="include-menupage-entries.html" data-sly-call="${includeMenuEntries.includeChildEntries @ resourcePage=resourcePage}"/>
+    </menu>
+
+</header>

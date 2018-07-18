@@ -1,0 +1,11 @@
+<div class="main-entry">
+
+    <a href="${properties.menuPageTargetPath}">
+        ${properties['jcr:title']}
+    </a>
+
+    <div class="subentries">
+        <sly data-sly-use.includeMenuEntries="include-menupage-entries.html" data-sly-call="${includeMenuEntries.includeChildEntries @ resourcePage=resourcePage}"/>
+    </div>
+
+</div>
