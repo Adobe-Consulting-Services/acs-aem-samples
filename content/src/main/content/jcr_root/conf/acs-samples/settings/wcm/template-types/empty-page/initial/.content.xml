@@ -12,4 +12,5 @@
                 jcr:primaryType="nt:unstructured"
                 sling:resourceType="wcm/foundation/components/responsivegrid"/>
     </root>
+    </jcr:content>
 </jcr:root>

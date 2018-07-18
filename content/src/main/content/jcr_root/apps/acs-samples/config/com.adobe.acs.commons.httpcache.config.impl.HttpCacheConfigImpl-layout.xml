@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0"
+          xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="sling:OsgiConfig"
+          httpcache.config.order="950"
+          httpcache.config.filter-scope="INCLUDE"
+          httpcache.config.requesturi.patterns="[/content/acs-samples/(.*)]"
+          httpcache.config.request.authentication="both"
+          httpcache.config.invalidation.oak.paths="[content/acs-samples/(headers|footers)/(.*).content.html]"
+          cacheConfigExtension.target="(&amp;(service.factoryPid=com.adobe.acs.samples.httpcache.ResourcePathCacheExtension)(configName=layout))"
+          cacheKeyFactory.target="(&amp;(service.factoryPid=com.adobe.acs.samples.httpcache.ResourcePathCacheExtension)(configName=layout))"
+/>
+

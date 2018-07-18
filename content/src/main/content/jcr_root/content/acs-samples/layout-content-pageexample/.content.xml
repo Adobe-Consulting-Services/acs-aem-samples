@@ -8,6 +8,6 @@
         jcr:primaryType="cq:PageContent"
         jcr:title="layout-content-page-example"
         sling:resourceType="acs-samples/components/structure/page/contentpage"
-        footerPagePath="/content/acs-samples/footer-example"
-        headerPagePath="/content/acs-samples/header-example"/>
+        footerPagePath="/content/acs-samples/footers/footer-example"
+        headerPagePath="/content/acs-samples/headers/header-example"/>
 </jcr:root>
