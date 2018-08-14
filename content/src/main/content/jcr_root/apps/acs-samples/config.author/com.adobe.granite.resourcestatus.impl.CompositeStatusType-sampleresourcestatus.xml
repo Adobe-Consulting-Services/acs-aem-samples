@@ -2,4 +2,10 @@
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
     jcr:primaryType="sling:OsgiConfig"
     name="[editor,template-editor]"
-    types="[sample-resource-status]"/>
+    types="[sample-resource-status,workflow]"/>
+
+<!-- 
+Note that the LAST registered CompositeType for a name (editor or template-editor) wins. 
+AEM will NOT aggregate types ACROSS CompositeStatusType configs. 
+This must be done manually and you MUST ensure that the LAST bound config has all the appropiate types. 
+-->
