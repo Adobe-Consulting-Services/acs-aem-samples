@@ -80,7 +80,7 @@ public class SampleWrappingWorkflowProcess implements WorkflowProcess {
      * references into a ConcurrentHaspMap and select the service reference object and retrieved via the class name,
      * which can be passed in via PROCESS_ARGs.
      */
-    @Reference(target = "serivce.pid=com.day.cq.wcm.workflow.process.CreateVersionProcess")
+    @Reference(target = "service.pid=com.day.cq.wcm.workflow.process.CreateVersionProcess")
     WorkflowProcess wrappedWorkflowProcess;
 
     /**
