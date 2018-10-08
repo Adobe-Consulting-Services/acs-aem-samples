@@ -1,0 +1,12 @@
+<div class="main-entry main-entry-variant-b">
+
+    Sling magic! I render differently!
+    <a href="${properties.menuPageTargetPath}">
+        ${properties['jcr:title']}
+    </a>
+
+    <div class="subentries">
+        <sly data-sly-use.includeMenuEntries="include-menupage-entries.html" data-sly-call="${includeMenuEntries.includeChildEntries @ resourcePage=resourcePage}"/>
+    </div>
+
+</div>

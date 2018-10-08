@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:description="Responsible for header content in the layout page example."
+    jcr:primaryType="cq:Template"
+    jcr:title="ACS Samples - Layout Pages Example - Header Page"
+    allowedPaths="[/content/acs-samples(/.*)]">
+    <jcr:content
+        jcr:primaryType="cq:PageContent"
+        cq:allowedTemplates="[/apps/acs-samples/layout-pages/templates/header-menu-mainentry-page,/apps/acs-samples/layout-pages/templates/header-menu-mainentry-variant-b-page]"
+        sling:resourceType="acs-samples/components/structure/page/layout/headerpage"/>
+</jcr:root>

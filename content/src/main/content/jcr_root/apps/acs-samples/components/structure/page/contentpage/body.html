@@ -1,0 +1,14 @@
+<sly data-sly-test="${inheritedPageProperties.headerPagePath != null && inheritedPageProperties.headerPagePath != ''}">
+    <sly data-sly-resource="${inheritedPageProperties.headerPagePath @ addSelectors=['content'],wcmmode='disabled',appendPath='jcr:content', resourceType='/apps/acs-samples/components/structure/page/layout/headerpage' }" />
+</sly>
+
+<div class="container">
+    <sly data-sly-use.templatedContainer="com.day.cq.wcm.foundation.TemplatedContainer"
+         data-sly-repeat.child="${templatedContainer.structureResources}"
+         data-sly-resource="${child.path @ resourceType=child.resourceType, decorationTagName='div'}"/>
+</div>
+
+
+<sly data-sly-test="${inheritedPageProperties.footerPagePath != null && inheritedPageProperties.footerPagePath != ''}">
+    <sly data-sly-resource="${inheritedPageProperties.footerPagePath @ addSelectors=['content'],wcmmode='disabled',appendPath='jcr:content', resourceType='/apps/acs-samples/components/structure/page/layout/footerpage'  }" />
+</sly>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="cq:Page">
+    <jcr:content
+        cq:contextHubPath="/etc/cloudsettings/default/contexthub"
+        cq:contextHubSegmentsPath="/etc/segmentation/contexthub"
+        cq:template="/conf/acs-samples/settings/wcm/templates/layout-content-page"
+        jcr:primaryType="cq:PageContent"
+        jcr:title="layout-content-page-example"
+        sling:resourceType="acs-samples/components/structure/page/contentpage"
+        footerPagePath="/content/acs-samples/footers/footer-example"
+        headerPagePath="/content/acs-samples/headers/header-example"/>
+</jcr:root>
