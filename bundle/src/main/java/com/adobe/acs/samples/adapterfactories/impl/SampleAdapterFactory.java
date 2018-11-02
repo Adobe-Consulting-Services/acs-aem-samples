@@ -20,36 +20,25 @@
 
 package com.adobe.acs.samples.adapterfactories.impl;
 
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Properties;
-import org.apache.felix.scr.annotations.Property;
-import org.apache.felix.scr.annotations.Service;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.adapter.AdapterFactory;
 import org.apache.sling.api.resource.Resource;
+import org.osgi.service.component.annotations.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Adaptables list the "From" objects the adapter supports
+ * Adapters list the "To" objects the adapter supports
+ */
 @Component(
-        label = "ACS AEM Samples - Adapter Factory"
+        name = "ACS AEM Samples - Adapter Factory",
+        service = AdapterFactory.class,
+        property = {
+                "adaptables=org.apache.sling.api.SlingHttpServletRequest",
+                "adapters=org.apache.sling.api.resource.Resource",
+        }
 )
-@Properties({
-        @Property(
-                label = "Adaptables",
-                description = "Adaptables list the \"From\" objects the adapter supports",
-                name = "adaptables",
-                value = { "org.apache.sling.api.SlingHttpServletRequest" },
-                propertyPrivate = true
-        ),
-        @Property(
-                label = "Adapters",
-                description = "Adapters list the \"To\" objects the adapter supports",
-                name = "adapters",
-                value = { "org.apache.sling.api.resource.Resource" },
-                propertyPrivate = true
-        )
-})
-@Service
 public class SampleAdapterFactory implements AdapterFactory {
     private static final Logger log = LoggerFactory.getLogger(SampleAdapterFactory.class);
 

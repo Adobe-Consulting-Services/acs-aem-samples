@@ -7,8 +7,7 @@ import com.adobe.granite.ui.clientlibs.script.ScriptResource;
 import com.day.text.Text;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Service;
+import org.osgi.service.component.annotations.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,8 +44,7 @@ import java.util.regex.Pattern;
  *     post:sample;option1=value1;option2=value2
  *  ]
  */
-@Component
-@Service
+@Component(service = ScriptProcessor.class)
 // https://docs.adobe.com/docs/en/aem/6-3/develop/ref/javadoc/com/adobe/granite/ui/clientlibs/script/ScriptProcessor.html
 public class SampleScriptProcessor implements ScriptProcessor {
     private static final Logger log = LoggerFactory.getLogger(SampleScriptProcessor.class);
