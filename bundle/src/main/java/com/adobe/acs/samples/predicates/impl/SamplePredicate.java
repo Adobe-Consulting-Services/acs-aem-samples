@@ -23,7 +23,7 @@ package com.adobe.acs.samples.predicates.impl;
 
 import com.day.cq.commons.predicate.AbstractNodePredicate;
 import org.apache.commons.collections.Predicate;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Properties;
 import org.apache.felix.scr.annotations.Property;

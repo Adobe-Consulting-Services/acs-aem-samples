@@ -21,7 +21,7 @@
 package com.adobe.acs.samples.replication.impl;
 
 import com.day.cq.replication.ReplicationContentFilter;
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
 import org.slf4j.Logger;

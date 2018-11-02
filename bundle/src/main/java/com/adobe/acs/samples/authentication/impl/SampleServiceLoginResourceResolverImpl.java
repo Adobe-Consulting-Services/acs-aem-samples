@@ -1,12 +1,11 @@
 package com.adobe.acs.samples.authentication.impl;
 
 import com.adobe.acs.samples.SampleExecutor;
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Reference;
-import org.apache.felix.scr.annotations.Service;
 import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,11 +14,12 @@ import java.io.StringWriter;
 import java.util.Collections;
 import java.util.Map;
 
+/**
+ * A sample use of Sling's ResourceResolverFactory.getServiceResourceResolver(..)
+ */
 @Component(
-    label = "ACS AEM Samples - Sample Login Resource Resolver",
-    description = "A sample use of Sling's ResourceResolverFactory.getServiceResourceResolver(..)"
-)
-@Service
+        name = "ACS AEM Samples - Sample Login Resource Resolver",
+        service = SampleExecutor.class)
 public class SampleServiceLoginResourceResolverImpl implements SampleExecutor {
     private static final Logger log = LoggerFactory.getLogger(SampleServiceLoginResourceResolverImpl.class);
 
@@ -46,15 +46,15 @@ public class SampleServiceLoginResourceResolverImpl implements SampleExecutor {
      */
     private final String getBundleServiceUser() {
         // Get the auto-closing Service resource resolver
-        try( ResourceResolver serviceResolver = resourceResolverFactory.getServiceResourceResolver(null)) {
-            serviceResolver = ;
-
+        try (ResourceResolver serviceResolver = resourceResolverFactory.getServiceResourceResolver(null)) {
             if (serviceResolver != null) {
                 // Do some work w your service resource resolver
                 return serviceResolver.getUserID();
             } else {
                 return "Could not obtain a User for Bundle Service";
             }
+        } catch (LoginException e) {
+            return "Login Exception when obtaining a User for the Bundle Service - " + e.getMessage();
         }
     }
     
@@ -80,7 +80,9 @@ public class SampleServiceLoginResourceResolverImpl implements SampleExecutor {
             } else {
                 return "Could not obtain a User for the Service: " + SERVICE_ACCOUNT_IDENTIFIER;
             }
-        } 
+        } catch (LoginException e) {
+            return "Login Exception when obtaining a User for the Bundle Service - " + e.getMessage();
+        }
     }
     
     /** LEGACY TRY-CATCH-FINALLY EXAMPLES ARE BELOW **/
@@ -92,11 +94,11 @@ public class SampleServiceLoginResourceResolverImpl implements SampleExecutor {
      *
      * @return the user ID
      */
-    private final String getBundleServiceUser() {
+    private final String getBundleServiceUser_LegacyApproach() {
 
         ResourceResolver serviceResolver = null;
 
-        try () {
+        try  {
             // Get the Service resource resolver
             serviceResolver = resourceResolverFactory.getServiceResourceResolver(null);
 
@@ -117,7 +119,6 @@ public class SampleServiceLoginResourceResolverImpl implements SampleExecutor {
         }
     }
 
-
     /**
      * The try-catch-finally approach can be replaced with the try-with-resources approach defined above in AEM 6.2 and later and Java7+.
      * 
@@ -125,7 +126,7 @@ public class SampleServiceLoginResourceResolverImpl implements SampleExecutor {
      *
      * @return the user ID
      */
-    private final String getSubServiceUser() {
+    private final String getSubServiceUser_LegacyApproach() {
 
         ResourceResolver serviceResolver = null;
 

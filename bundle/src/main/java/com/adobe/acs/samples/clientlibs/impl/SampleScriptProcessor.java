@@ -6,7 +6,7 @@ import com.adobe.granite.ui.clientlibs.script.ScriptProcessor;
 import com.adobe.granite.ui.clientlibs.script.ScriptResource;
 import com.day.text.Text;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
 import org.slf4j.Logger;
