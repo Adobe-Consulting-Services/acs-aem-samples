@@ -11,8 +11,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.felix.scr.annotations.*;
 import org.osgi.service.component.ComponentContext;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
 import org.osgi.service.http.whiteboard.HttpWhiteboardConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,25 +30,26 @@ import org.slf4j.LoggerFactory;
  */
 
 // Registered Felix Servlet Filters in AEM can be viewed her: http://localhost:4502/system/console/status-httpwhiteboard
-@Component
-@Properties({
-                    // A major difference from Sling Filters is Servlet Filters can be registered via the Felix HTTP Whiteboard to URL path patterns.
 
-                    // A Pattern OR Regex must be provided.
+@Component(
+        service = Filter.class,
+        property = {
+                // A major difference from Sling Filters is Servlet Filters can be registered via the Felix HTTP Whiteboard to URL path patterns.
 
-                    // http://javadox.com/org.osgi/osgi.cmpn/6.0.0/org/osgi/service/http/whiteboard/HttpWhiteboardConstants.html#HTTP_WHITEBOARD_FILTER_PATTERN
-                    @Property(name = HttpWhiteboardConstants.HTTP_WHITEBOARD_FILTER_PATTERN,
-                                value = { "/content/samples/" }),
+                // A Pattern OR Regex must be provided (Pick one or the other)
 
-                    // http://javadox.com/org.osgi/osgi.cmpn/6.0.0/org/osgi/service/http/whiteboard/HttpWhiteboardConstants.html#HTTP_WHITEBOARD_FILTER_REGEX
-                    @Property(name = HttpWhiteboardConstants.HTTP_WHITEBOARD_FILTER_REGEX,
-                              value = { "/[a-z]*" }),
+                // http://javadox.com/org.osgi/osgi.cmpn/6.0.0/org/osgi/service/http/whiteboard/HttpWhiteboardConstants.html#HTTP_WHITEBOARD_FILTER_PATTERN
+                // Specify multiple values using the standard OSGi DS 1.2 Annotations convention of multiple property entries.
+                HttpWhiteboardConstants.HTTP_WHITEBOARD_FILTER_PATTERN + "=/content/samples/",
+                HttpWhiteboardConstants.HTTP_WHITEBOARD_FILTER_PATTERN + "=/content/other-samples/",
 
-                    // http://javadox.com/org.osgi/osgi.cmpn/6.0.0/org/osgi/service/http/whiteboard/HttpWhiteboardConstants.html#HTTP_WHITEBOARD_CONTEXT_SELECT
-                    @Property(name = HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_SELECT,
-                                value = "(" + HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_NAME + "=*)")
-})
-@Service
+                // http://javadox.com/org.osgi/osgi.cmpn/6.0.0/org/osgi/service/http/whiteboard/HttpWhiteboardConstants.html#HTTP_WHITEBOARD_FILTER_REGEX
+                HttpWhiteboardConstants.HTTP_WHITEBOARD_FILTER_REGEX + "=/[a-z]*",
+
+                // http://javadox.com/org.osgi/osgi.cmpn/6.0.0/org/osgi/service/http/whiteboard/HttpWhiteboardConstants.html#HTTP_WHITEBOARD_CONTEXT_SELECT
+                HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_SELECT + "=(" + HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_NAME + "=*)"
+        }
+)
 public class SampleServletFilter implements Filter {
     private Logger log = LoggerFactory.getLogger(SampleServletFilter.class);
 
