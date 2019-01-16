@@ -61,13 +61,21 @@ import java.util.Collection;
 
         // Set the configurationPolicy
         configurationPolicy = ConfigurationPolicy.REQUIRE
+        
+        // OSGi properties that do not require editting via the ConfigMgr by declaring them 
+        // in this property array.
+        property = {
+            "my.osgi.property=MY-VALUE",
+            "another.osgi.property=" + SampleOsgiR6AnnotationsImpl.ANOTHER_VALUE
+        }        
 )
 
 // With @Designate, mark this OSGi service as taking the above Configuration class as the config to be passed into @Activate, @Deactivate and @Modified methods
 @Designate(ocd = SampleOsgiR6AnnotationsImpl.Config.class)
 public class SampleOsgiR6AnnotationsImpl implements SampleExecutor {
     private static final Logger log = LoggerFactory.getLogger(SampleOsgiR6AnnotationsImpl.class);
-
+    public static final String ANOTHER_VALUE = "10";
+        
     // Define the OSGi Property Configuration DTO that will replace the OSGi Properties map passed into @Activate, @Deactivate and @Modified methods
     // This replaces the @Property
     @ObjectClassDefinition(
