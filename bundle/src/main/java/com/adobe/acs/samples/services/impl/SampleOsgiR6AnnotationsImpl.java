@@ -60,7 +60,7 @@ import java.util.Collection;
         service = { SampleExecutor.class },
 
         // Set the configurationPolicy
-        configurationPolicy = ConfigurationPolicy.REQUIRE
+        configurationPolicy = ConfigurationPolicy.REQUIRE,
         
         // OSGi properties that do not require editting via the ConfigMgr by declaring them 
         // in this property array.
