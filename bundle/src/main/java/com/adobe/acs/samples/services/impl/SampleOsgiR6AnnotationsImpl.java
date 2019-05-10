@@ -77,7 +77,7 @@ public class SampleOsgiR6AnnotationsImpl implements SampleExecutor {
     public static final String ANOTHER_VALUE = "10";
         
     // Define the OSGi Property Configuration DTO that will replace the OSGi Properties map passed into @Activate, @Deactivate and @Modified methods
-    // This replaces the @Property
+    // The methods in this interface replace the 'old' @Property's where metatype=true
     @ObjectClassDefinition(
             // The name and description of the @ObjectClassDefinition define the name/description that show in the OSGi Console for this Component.
             name = "ACS AEM Samples - OSGi R6 Annotated Component",
