@@ -83,7 +83,9 @@ public class SampleOsgiR6AnnotationsImpl implements SampleExecutor {
             description = "This is generated via the OSGi R6 Annotated Component"
     )
     @interface Config {
-        // The _'s in the method names (se below) are transformed to . when the OSGi property names are generated.
+        // Each method marked with @AttributeDefinition will rendering the OSGi Configuration Manager web console as a field.                        
+
+        // The _'s in the method names (see below) are transformed to . when the OSGi property names are generated.
         // Example: max_size -> max.size, user_name_default -> user.name.default
 
         @AttributeDefinition(
