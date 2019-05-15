@@ -39,7 +39,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Component(
-        label = "ACS AEM Samples - Sample Replication Preprocessor"
+        label = "ACS AEM Samples - Sample Replication Preprocessor",
+        immediate = true
 )
 @Service
 public class SampleReplicationPreprocessor implements Preprocessor {
