@@ -20,30 +20,33 @@
 
 package com.adobe.acs.samples.servlets.impl;
 
-import org.apache.felix.scr.annotations.Properties;
-import org.apache.felix.scr.annotations.Property;
-import org.apache.felix.scr.annotations.sling.SlingServlet;
-import org.apache.sling.api.SlingHttpServletRequest;
-import org.apache.sling.api.SlingHttpServletResponse;
-import org.apache.sling.api.servlets.OptingServlet;
-import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
-import org.osgi.framework.Constants;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.servlet.ServletException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-@SlingServlet(
-        label = "Samples - Sling Safe Methods Servlet",
-        description = "Sample implementation of a Sling All Methods Servlet.",
-        paths = { "/services/safe-sample" },
-        methods = { "GET" }, // Ignored if paths is set - Defaults to GET if not specified
-        resourceTypes = { }, // Ignored if paths is set
-        selectors = { "print.a4", "print" }, // Ignored if paths is set
-        extensions = { "html" } // Ignored if paths is set
+import javax.servlet.Servlet;
+import javax.servlet.ServletException;
+
+import org.apache.sling.api.SlingHttpServletRequest;
+import org.apache.sling.api.SlingHttpServletResponse;
+import org.apache.sling.api.servlets.HttpConstants;
+import org.apache.sling.api.servlets.OptingServlet;
+import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
+import org.osgi.service.component.annotations.Component;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+@Component(
+		service = Servlet.class, 
+		property = {
+				"sling.core.servletName=Samples - Sling Safe Methods Servlet", // Name with which the servlet will be registered
+				"sling.servlet.paths=/services/safe-sample",
+				"sling.servlet.methods=" + HttpConstants.METHOD_GET, // Ignored if paths is set - Defaults to GET if not specified
+				"sling.servlet.resourceTypes=", // Ignored if paths is set
+				"sling.servlet.selectors=print.a4", // Ignored if paths is set
+				"sling.servlet.selectors=print", // Ignored if paths is set
+				"sling.servlet.extensions=html"	// Ignored if paths is set	
+		}
 )
 public class SampleSafeMethodsServlet extends SlingSafeMethodsServlet implements OptingServlet {
     private static final Logger log = LoggerFactory.getLogger(SampleSafeMethodsServlet.class);

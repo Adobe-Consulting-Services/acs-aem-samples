@@ -20,30 +20,37 @@
 
 package com.adobe.acs.samples.servlets.impl;
 
-import org.apache.felix.scr.annotations.sling.SlingServlet;
+import java.io.IOException;
+
+import javax.servlet.Servlet;
+import javax.servlet.ServletException;
+
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.resource.ModifiableValueMap;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ValueMap;
+import org.apache.sling.api.servlets.HttpConstants;
 import org.apache.sling.api.servlets.OptingServlet;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
 import org.apache.sling.commons.json.JSONException;
 import org.apache.sling.commons.json.JSONObject;
+import org.osgi.service.component.annotations.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.ServletException;
-import java.io.IOException;
-
-@SlingServlet(
-        label = "Samples - Sling All Methods Servlet",
-        description = "Sample implementation of a Sling All Methods Servlet.",
-        paths = { "/services/all-sample" },
-        methods = { "GET", "POST" }, // Ignored if paths is set - Defaults to GET if not specified
-        resourceTypes = { }, // Ignored if paths is set
-        selectors = { "print.a4" }, // Ignored if paths is set
-        extensions = { "html", "htm" }  // Ignored if paths is set
+@Component(
+		service = Servlet.class, 
+		property = {
+				"sling.core.servletName=Samples - Sling All Methods Servlet", // Name with which the servlet will be registered
+				"sling.servlet.paths=/services/all-sample",
+				"sling.servlet.methods=" + HttpConstants.METHOD_GET, // Ignored if paths is set - Defaults to GET if not specified
+				"sling.servlet.methods=" + HttpConstants.METHOD_POST,
+				"sling.servlet.resourceTypes=", // Ignored if paths is set
+				"sling.servlet.selectors=print.a4", // Ignored if paths is set
+				"sling.servlet.extensions=html", // Ignored if paths is set
+				"sling.servlet.extensions=htm"
+		}
 )
 public class SampleAllMethodsServlet extends SlingAllMethodsServlet implements OptingServlet {
     private static final Logger log = LoggerFactory.getLogger(SampleAllMethodsServlet.class);
