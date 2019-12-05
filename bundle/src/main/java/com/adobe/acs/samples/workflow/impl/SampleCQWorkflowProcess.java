@@ -54,7 +54,6 @@ import java.util.Collections;
  * - Granite Workflow APIs: https://docs.adobe.com/docs/en/aem/6-1/ref/javadoc/com/adobe/granite/workflow/package-summary.html
  */
 @Component(
-        immediate = true,
         service = {WorkflowProcess.class},
         property = {
                 "process.label=ACS Sample Workflow Process",
