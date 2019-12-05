@@ -27,11 +27,8 @@ import com.day.cq.workflow.exec.WorkflowData;
 import com.day.cq.workflow.exec.WorkflowProcess;
 import com.day.cq.workflow.metadata.MetaDataMap;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Properties;
-import org.apache.felix.scr.annotations.Property;
-import org.apache.felix.scr.annotations.Reference;
-import org.apache.felix.scr.annotations.Service;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -57,25 +54,13 @@ import java.util.Collections;
  * - Granite Workflow APIs: https://docs.adobe.com/docs/en/aem/6-1/ref/javadoc/com/adobe/granite/workflow/package-summary.html
  */
 @Component(
-        label = "ACS AEM Samples - AEM CQ Workflow Process",
-        description = "ACS AEM Samples - Sample CQ Workflow Process implementation"
+        immediate = true,
+        service = {WorkflowProcess.class},
+        property = {
+                "process.label=ACS Sample Workflow Process",
+                Constants.SERVICE_DESCRIPTION + "=" + "Sample CQ Workflow Process implementation."
+        }
 )
-@Properties({
-        @Property(
-                name = Constants.SERVICE_DESCRIPTION,
-                value = "Sample CQ Workflow Process implementation.",
-                propertyPrivate = true
-        ),
-        @Property(
-                label = "Workflow Label",
-                name = "process.label",
-                value = "Sample Workflow Process",
-                description = "Label which will appear in the AEM Workflow interface; This should be unique across "
-                        + "Workflow Processes",
-                propertyPrivate = true
-        )
-})
-@Service
 public class SampleCQWorkflowProcess implements WorkflowProcess {
     private static final Logger log = LoggerFactory.getLogger(SampleCQWorkflowProcess.class);
 
