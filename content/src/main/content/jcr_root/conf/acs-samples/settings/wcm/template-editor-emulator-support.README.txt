@@ -1,6 +1,0 @@
-In order for the cq:responsive nodes and Layout editor to work in Template Editor, your pages sling:resourceType
-(or its sling:superResourceType) must be registered via OSGi configurationg with the MobileEmulator OSGi configuration factory.
-
-See the follow sample OSGi configuration:
-
- * /apps/acs-samples/config.author/com.day.cq.wcm.mobile.core.impl.MobileEmulatorProvider-acs-samples.xml
