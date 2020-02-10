@@ -104,7 +104,7 @@ public class SampleWrappingWorkflowProcess implements WorkflowProcess {
                 // The wrapped workflow process is null! Handle based on your requirements.
                 log.error("Wrapped Workflow Process is null");
             } else if (isProcessableWithWrappedWorkflow(resourceResolver, path)) {
-                // Check ig the payload is a candidate for executing through the wrapped workflow; this can contain custom logic to make this determination.
+                // Check if the payload is a candidate for executing through the wrapped workflow; this can contain custom logic to make this determination.
                 wrappedWorkflowProcess.execute(workItem, workflowSession, args);
             } else {
                 // If not processable, its always good to log as DEBUG to INFO process w Wrapped Process for visibility
