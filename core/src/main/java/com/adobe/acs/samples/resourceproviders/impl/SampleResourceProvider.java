@@ -53,6 +53,7 @@ import java.util.*;
  * Another sample code: https://github.com/apache/sling-org-apache-sling-launchpad-test-services/blob/master/src/main/java/org/apache/sling/launchpad/testservices/resourceprovider/PlanetsResourceProvider.java
  */
 @Component(
+        service = ResourceProvider.class,
         property = {
                 ResourceProvider.PROPERTY_NAME + "=acs-aem-sample.sample-resource-provider",
                 ResourceProvider.PROPERTY_ROOT + "=" + SampleResourceProvider.ROOT,
