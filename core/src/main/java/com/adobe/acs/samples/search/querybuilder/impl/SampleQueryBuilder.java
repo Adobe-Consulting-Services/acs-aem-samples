@@ -46,7 +46,7 @@ public class SampleQueryBuilder implements SampleService {
     private static final Logger log = LoggerFactory.getLogger(SampleQueryBuilder.class);
 
     // ISGO8601 Date format is used for the Date Predicates
-    final static String ISO8601_DATE = ("YYYY-MM-DDTHH:mm:ss.SSSZ");
+    final static String ISO8601_DATE = ("YYYY-MM-DD'T'HH:mm:ss.SSSZ");
 
     // Get the QueryBuilder OSGi Service
     // Can also be obtained via `resourceResolver.adaptTo(QueryBuilder.class)`
@@ -88,7 +88,7 @@ public class SampleQueryBuilder implements SampleService {
         map.put("property.operation", "equals"); // equals (default), unequals, like, not, exists
 
         // https://docs.adobe.com/content/docs/en/aem/6-2/develop/ref/javadoc/com/day/cq/search/eval/DateRangePredicateEvaluator.html
-        map.put("daterange.property", "jcr:content/cq:lastModified");
+        map.put("daterange.property", "jcr:content/cq:lastModified"); // or use jcr:content/jcr:lastModified
         map.put("daterange.lowerBound", iso8601.format(new Date(10000)));
         map.put("daterange.lowerOperation", ">"); // Or >=
         map.put("daterange.upperBound", iso8601.format(new Date(20000)));
@@ -107,7 +107,7 @@ public class SampleQueryBuilder implements SampleService {
 
         //https://docs.adobe.com/content/docs/en/aem/6-2/develop/ref/javadoc/com/day/cq/search/eval/RelativeDateRangePredicateEvaluator.html
         //  supports the bugzilla syntax 1s 2m 3h 4d 5w 6M 7y, else in milliseconds
-        map.put("relativedaterange.property", "jcr:content/cq:lastModified");
+        map.put("relativedaterange.property", "jcr:content/cq:lastModified"); // or use jcr:content/jcr:lastModified
         map.put("relativedaterange.lowerBound", "60000");
         map.put("relativedaterange.lowerOperation", ">"); // Or >=
         map.put("relativedaterange.upperBound", "4h 30m 10s");
