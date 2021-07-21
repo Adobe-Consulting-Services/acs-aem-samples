@@ -48,7 +48,7 @@ public class SampleMultiReferenceServiceImpl implements SampleMultiReferenceServ
     // List to store Service objects derived from the serviceReferenceArray
     // Note: This Map MUST be thread-safe; there is no guarentee that OSGi will not be adding/removing 
     // service references from this Map while consuming code is reading from it.
-    private Map<String, SampleService> sampleServices = new ConcurrentHashMap<String, SampleService>();
+    private volatile Map<String, SampleService> sampleServices = new ConcurrentHashMap<String, SampleService>();
 
     /* Service Methods */
 
