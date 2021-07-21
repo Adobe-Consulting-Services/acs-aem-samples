@@ -66,7 +66,9 @@ import java.util.Collection;
         // in this property array.
         property = {
             "my.osgi.property=MY-VALUE",
-            "another.osgi.property=" + SampleOsgiR6AnnotationsImpl.ANOTHER_VALUE
+            "another.osgi.property=" + SampleOsgiR6AnnotationsImpl.ANOTHER_VALUE,
+            // List of :Types can be found here: https://docs.osgi.org/javadoc/osgi.cmpn/7.0.0/org/osgi/service/metatype/AttributeDefinition.html
+            "an.integer.osgi.property:Integer=10"
         }        
 )
 
