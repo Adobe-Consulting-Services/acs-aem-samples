@@ -14,6 +14,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 import java.io.IOException;
 
+
+/**
+ * THIS APPROACH HAS BEEN REPLACED BY THE AEM OOTB SAML CUSTOM HOOK AVAILABLE SINCE ~FEB, 2026.
+ * https://experienceleague.adobe.com/en/docs/experience-manager-learn/cloud-service/authentication/saml-2-0#custom-saml-hooks-for-advanced-use-cases
+ * 
+ * Prefer the OOTB custom SAML hook unless you have (very) good reason not to.
+ **/
+
 @Component(
         property = {
                 "service.ranking=10000",
